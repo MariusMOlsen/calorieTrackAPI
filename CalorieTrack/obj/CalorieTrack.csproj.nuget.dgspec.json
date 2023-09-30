@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mariu\\source\\repos\\CalorieTrack\\CalorieTrack\\CalorieTrack.csproj": {}
+    "C:\\work\\calorieTrackAPI\\CalorieTrack\\CalorieTrack.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mariu\\source\\repos\\CalorieTrack\\CalorieTrack\\CalorieTrack.csproj": {
+    "C:\\work\\calorieTrackAPI\\CalorieTrack\\CalorieTrack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mariu\\source\\repos\\CalorieTrack\\CalorieTrack\\CalorieTrack.csproj",
+        "projectUniqueName": "C:\\work\\calorieTrackAPI\\CalorieTrack\\CalorieTrack.csproj",
         "projectName": "CalorieTrack",
-        "projectPath": "C:\\Users\\mariu\\source\\repos\\CalorieTrack\\CalorieTrack\\CalorieTrack.csproj",
+        "projectPath": "C:\\work\\calorieTrackAPI\\CalorieTrack\\CalorieTrack.csproj",
         "packagesPath": "C:\\Users\\mariu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mariu\\source\\repos\\CalorieTrack\\CalorieTrack\\obj\\",
+        "outputPath": "C:\\work\\calorieTrackAPI\\CalorieTrack\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

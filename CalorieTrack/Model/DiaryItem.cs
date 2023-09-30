@@ -12,8 +12,7 @@ namespace CalorieTrack.Model
     }
 
     public class DiaryItem
-    {
-        public int Id { get; set; }
+    {   
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Guid { get; set; }

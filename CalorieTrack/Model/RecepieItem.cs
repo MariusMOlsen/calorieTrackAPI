@@ -5,7 +5,6 @@ namespace CalorieTrack.Model
 {
     public class RecepieItem
     {
-        public int Id { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

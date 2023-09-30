@@ -1,10 +1,13 @@
 ﻿using CalorieTrack.Interfaces.Model;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace CalorieTrack.Model
 {
     public class Diary: INutritionObject
     {
-        public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]  
         public Guid Guid { get; set; }
         public DateTime Date { get; set; }
         public double Weight { get; set; }

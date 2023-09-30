@@ -11,15 +11,16 @@ namespace CalorieTrack.Services
         
         public UnitDefinitionService(DataContext context) { _context = context; }
 
-        public async Task<List<UnitDefinition>> AddUnitDefition(string name, int defaultAmount)
+        public async Task<List<UnitDefinitionDTO>> AddUnitDefition(string name, int defaultAmount)
         {
             UnitDefinition unitDefinition = new UnitDefinition(name, defaultAmount);
             _context.UnitDefinition.Add(unitDefinition);
             await _context.SaveChangesAsync();
-            return await _context.UnitDefinition.ToListAsync();
+            List<UnitDefinition> unitDefinitionList  = await _context.UnitDefinition.ToListAsync();
+            return UnitDefinitionDTO.convertFromEntityListToDTOList(unitDefinitionList);
         }
 
-        public async Task<List<UnitDefinition>> DeleteUnitDefinition(Guid Guid)
+        public async Task<List<UnitDefinitionDTO>?> DeleteUnitDefinition(Guid Guid)
         {
             var foundUnitDefinition = await _context.UnitDefinition.FindAsync(Guid);
 
@@ -29,17 +30,20 @@ namespace CalorieTrack.Services
             }
              _context.UnitDefinition.Remove(foundUnitDefinition);
             await _context.SaveChangesAsync();
-            return await _context.UnitDefinition.ToListAsync();
+            List<UnitDefinition> unitDefinitionList = await _context.UnitDefinition.ToListAsync();
+            return UnitDefinitionDTO.convertFromEntityListToDTOList(unitDefinitionList);
         }
         
-        public async Task<List<UnitDefinition>> GetUnitDefinitions()
+        public async Task<List<UnitDefinitionDTO>> GetUnitDefinitions()
         {
-            return await _context.UnitDefinition.ToListAsync();
+            List<UnitDefinition> unitDefinitionList = await _context.UnitDefinition.ToListAsync();
+            return UnitDefinitionDTO.convertFromEntityListToDTOList(unitDefinitionList);
         }
 
-        public async Task<UnitDefinition> GetSingleUnitDefiniton(Guid Guid)
+        public async Task<UnitDefinitionDTO> GetSingleUnitDefiniton(Guid Guid)
         {
-            return await _context.UnitDefinition.FindAsync(Guid);
+            UnitDefinition unitDefinition = await _context.UnitDefinition.FindAsync(Guid);
+            return UnitDefinitionDTO.convertFromEntityToDTO(unitDefinition);
         }
     }
 }

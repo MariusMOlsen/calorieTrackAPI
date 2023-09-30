@@ -1,0 +1,28 @@
+Steg 1.
+Skisse databasediagram.
+Opprette alle entiteter samt Interfacer og DTO'er relatert til entiteter.
+Opprette alle controllere/servicer relatert til CRUD operasjoner til entiteter.
+Opprette basic søk med kun brukerskapt data.
+
+Steg 2.
+Skissere et første utkast av grensesnitt. (mobile first)
+Lage grensesnitt i angular.
+
+Steg 3.
+Håndtere bruker innlogging og autentisering.
+
+Steg 4.
+Integrere seg med esktern API/database for produkt
+Opprette mer komplekst søk for produkter
+
+Steg 5.
+Implementere kamera-scanning av produkter.
+
+Steg 6.
+Lage enkel native app som kun håndterer tilgang til hardware og åpner web appen.
+
+Steg 7.
+Bli rik.
+
+
+

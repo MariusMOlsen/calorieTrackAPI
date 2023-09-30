@@ -20,7 +20,7 @@ namespace CalorieTrack.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<UnitDefinition>>> GetAllUnitDefinitions()
+        public async Task<ActionResult<List<UnitDefinitionDTO>>> GetAllUnitDefinitions()
         {
             var result = await _unitDefinitionService.GetUnitDefinitions();
             if( result == null)
@@ -31,7 +31,7 @@ namespace CalorieTrack.Controllers
         }
 
         [HttpGet("{guid}")]
-        public async Task<ActionResult<UnitDefinition>> GetSingleUnitDefinition(Guid guid)
+        public async Task<ActionResult<UnitDefinitionDTO>> GetSingleUnitDefinition(Guid guid)
         {
             var result = await _unitDefinitionService.GetSingleUnitDefiniton(guid);
             if (result == null)
@@ -42,7 +42,7 @@ namespace CalorieTrack.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult<UnitDefinition>> DeleteUnitDefiniton(Guid guid)
+        public async Task<ActionResult<UnitDefinitionDTO>> DeleteUnitDefiniton(Guid guid)
         {
             var result = await _unitDefinitionService.DeleteUnitDefinition(guid);
             return NoContent();
@@ -50,7 +50,7 @@ namespace CalorieTrack.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<UnitDefinition>>> CreateUnitDefinition(string name, int defaultAmount)
+        public async Task<ActionResult<List<UnitDefinitionDTO>>> CreateUnitDefinition(string name, int defaultAmount)
         {
             try
             {
@@ -59,6 +59,7 @@ namespace CalorieTrack.Controllers
                 return Ok(result);
             }
             catch(Exception ex) {
+                Console.WriteLine(ex.Message);
                 return BadRequest();
             }
 

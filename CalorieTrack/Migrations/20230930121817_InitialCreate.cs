@@ -15,8 +15,6 @@ namespace CalorieTrack.Migrations
                 name: "diaries",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Weight = table.Column<double>(type: "float", nullable: false),
@@ -24,7 +22,7 @@ namespace CalorieTrack.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_diaries", x => x.Id);
+                    table.PrimaryKey("PK_diaries", x => x.Guid);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,7 +30,6 @@ namespace CalorieTrack.Migrations
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     DiaryGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ItemType = table.Column<int>(type: "int", nullable: false),
                     ItemGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -47,7 +44,6 @@ namespace CalorieTrack.Migrations
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NutritionGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AmountOfUnit = table.Column<int>(type: "int", nullable: false),
@@ -62,8 +58,6 @@ namespace CalorieTrack.Migrations
                 name: "meals",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NutritionGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -71,7 +65,7 @@ namespace CalorieTrack.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_meals", x => x.Id);
+                    table.PrimaryKey("PK_meals", x => x.Guid);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,7 +73,6 @@ namespace CalorieTrack.Migrations
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     MealGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MealItemType = table.Column<int>(type: "int", nullable: false),
                     ItemGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -94,11 +87,10 @@ namespace CalorieTrack.Migrations
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     Protein = table.Column<int>(type: "int", nullable: false),
                     Carbohydrates = table.Column<int>(type: "int", nullable: false),
                     Fat = table.Column<int>(type: "int", nullable: false),
-                    unitDefinitionGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    UnitDefinitionGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,7 +102,6 @@ namespace CalorieTrack.Migrations
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     RecepieGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FoodGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -124,7 +115,6 @@ namespace CalorieTrack.Migrations
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NutritionGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -139,7 +129,6 @@ namespace CalorieTrack.Migrations
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     defaultAmount = table.Column<int>(type: "int", nullable: false)
                 },
