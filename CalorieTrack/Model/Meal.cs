@@ -1,6 +1,6 @@
-﻿using CalorieTrack.Interfaces.Model;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using CalorieTrack.Model.Interfaces;
 
 namespace CalorieTrack.Model
 {

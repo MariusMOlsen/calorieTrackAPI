@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalorieTrack.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230930121817_InitialCreate")]
+    [Migration("20230930175354_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -130,6 +130,9 @@ namespace CalorieTrack.Migrations
                 {
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Calories")
+                        .HasColumnType("int");
 
                     b.Property<int>("Carbohydrates")
                         .HasColumnType("int");

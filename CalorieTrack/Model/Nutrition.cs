@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using CalorieTrack.Interfaces.Model;
+using CalorieTrack.Model.Interfaces;
 
 namespace CalorieTrack.Model
 {
@@ -18,6 +18,7 @@ namespace CalorieTrack.Model
 
         public Guid UnitDefinitionGuid { get; set; }
 
+        public Nutrition() { }
         public Nutrition(int protein, int carbohydrates, int fat, int calories) { 
             this.Protein = protein;
             this.Carbohydrates= carbohydrates;

@@ -1,7 +1,7 @@
 ﻿using CalorieTrack.Data;
-using CalorieTrack.Interfaces.Services;
 using CalorieTrack.Model;
 using CalorieTrack.Services;
+using CalorieTrack.Services.interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CalorieTrack.Controllers

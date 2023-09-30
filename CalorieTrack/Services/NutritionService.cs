@@ -1,12 +1,12 @@
 ﻿using CalorieTrack.Data;
-using CalorieTrack.Interfaces.Services;
 using CalorieTrack.Model;
+using CalorieTrack.Services.interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace CalorieTrack.Services
 {
-    public class NutritionService: INutritionService
+    public class NutritionService : INutritionService
     {
         private readonly DataContext _context;
 
@@ -19,12 +19,13 @@ namespace CalorieTrack.Services
         public async Task<List<NutritionDTO>> GetAllNutrition()
         {
             List<Nutrition> nutritonList = await _context.Nutritions.ToListAsync();
-           return NutritionDTO.convertFromEntityListToDTOList(nutritonList);
+            return NutritionDTO.convertFromEntityListToDTOList(nutritonList);
         }
 
-        public async Task<List<NutritionDTO>> AddNutrition(Nutrition nutrition)
+        public async Task<List<NutritionDTO>> AddNutrition(int protein, int carbohydrates, int fat, int calories, Guid unitDefinitonGuid)
         {
-             _context.Nutritions.Add(nutrition);
+            Nutrition newNutrition = new Nutrition(protein, carbohydrates, fat, calories, unitDefinitonGuid);
+            _context.Nutritions.Add(newNutrition);
             await _context.SaveChangesAsync();
             List<Nutrition> nutritonList = await _context.Nutritions.ToListAsync();
             return NutritionDTO.convertFromEntityListToDTOList(nutritonList);
@@ -44,7 +45,7 @@ namespace CalorieTrack.Services
             return NutritionDTO.convertFromEntityListToDTOList(nutritonList);
         }
 
-        public async Task<List<NutritionDTO>?> EditNutrition( Nutrition nutritionRequest)
+        public async Task<List<NutritionDTO>?> EditNutrition(Nutrition nutritionRequest)
         {
             Nutrition nutritionObject = await _context.Nutritions.FindAsync(nutritionRequest.Guid);
             if (nutritionObject == null)
