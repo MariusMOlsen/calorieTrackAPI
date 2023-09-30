@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalorieTrack.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230928155321_InitialCreate")]
+    [Migration("20230930121817_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,17 +27,11 @@ namespace CalorieTrack.Migrations
 
             modelBuilder.Entity("CalorieTrack.Model.Diary", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("Guid")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid>("Guid")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("NutritionGuid")
                         .HasColumnType("uniqueidentifier");
@@ -45,7 +39,7 @@ namespace CalorieTrack.Migrations
                     b.Property<double>("Weight")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("Guid");
 
                     b.ToTable("diaries");
                 });
@@ -57,9 +51,6 @@ namespace CalorieTrack.Migrations
 
                     b.Property<Guid>("DiaryGuid")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
 
                     b.Property<Guid>("ItemGuid")
                         .HasColumnType("uniqueidentifier");
@@ -80,9 +71,6 @@ namespace CalorieTrack.Migrations
                     b.Property<int>("AmountOfUnit")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -101,12 +89,6 @@ namespace CalorieTrack.Migrations
 
             modelBuilder.Entity("CalorieTrack.Model.Meal", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
 
@@ -120,7 +102,7 @@ namespace CalorieTrack.Migrations
                     b.Property<Guid>("UserGuid")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("Guid");
 
                     b.ToTable("meals");
                 });
@@ -129,9 +111,6 @@ namespace CalorieTrack.Migrations
                 {
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
 
                     b.Property<Guid>("ItemGuid")
                         .HasColumnType("uniqueidentifier");
@@ -158,13 +137,10 @@ namespace CalorieTrack.Migrations
                     b.Property<int>("Fat")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<int>("Protein")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("unitDefinitionGuid")
+                    b.Property<Guid>("UnitDefinitionGuid")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Guid");
@@ -176,9 +152,6 @@ namespace CalorieTrack.Migrations
                 {
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -203,9 +176,6 @@ namespace CalorieTrack.Migrations
                     b.Property<Guid>("FoodGuid")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<Guid>("RecepieGuid")
                         .HasColumnType("uniqueidentifier");
 
@@ -218,9 +188,6 @@ namespace CalorieTrack.Migrations
                 {
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()

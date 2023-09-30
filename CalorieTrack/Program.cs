@@ -11,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUnitDefinitionService, UnitDefinitionService>();
+builder.Services.AddScoped<INutritionService, NutritionService>();
 builder.Services.AddDbContext<DataContext>();
 
 var app = builder.Build();

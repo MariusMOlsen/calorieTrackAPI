@@ -6,7 +6,6 @@ namespace CalorieTrack.Model
 {
     public class Nutrition : INutritionObject
     {
-        public int Id { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -14,23 +13,28 @@ namespace CalorieTrack.Model
         public int Protein { get; set; }
         public int Carbohydrates { get; set; }
         public int Fat { get; set; }
+        
+        public int Calories { get; set; }
 
-        public Guid? unitDefinitionGuid { get; set; }
+        public Guid UnitDefinitionGuid { get; set; }
 
-        public Nutrition(int protein, int carbohydrates, int fat) { 
+        public Nutrition(int protein, int carbohydrates, int fat, int calories) { 
             this.Protein = protein;
             this.Carbohydrates= carbohydrates;
             this.Fat = fat;
             this.Guid= Guid.NewGuid();
+            this.UnitDefinitionGuid = Guid.Empty;
+            this.Calories = calories;
         }
 
-        public Nutrition(int protein, int carbohydrates, int fat, Guid unitDefinitionGuid)
+        public Nutrition(int protein, int carbohydrates, int fat, int calories, Guid unitDefinitionGuid)
         {
             this.Protein = protein;
             this.Carbohydrates = carbohydrates;
             this.Fat = fat;
             this.Guid = Guid.NewGuid();
-            this.unitDefinitionGuid = unitDefinitionGuid; 
+            this.Calories = calories;
+            this.UnitDefinitionGuid = unitDefinitionGuid; 
         }
 
 

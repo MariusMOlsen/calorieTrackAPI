@@ -1,10 +1,13 @@
 ﻿using CalorieTrack.Interfaces.Model;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace CalorieTrack.Model
 {
     public class Meal: INutritionObject
     {
-        public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Guid { get; set; }
         public string Name { get; set; }
         public Guid NutritionGuid { get; set; }

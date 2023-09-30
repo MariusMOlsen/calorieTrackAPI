@@ -6,11 +6,11 @@ namespace CalorieTrack.Interfaces.Services
     public interface IUnitDefinitionService
     {
 
-        Task<List<UnitDefinition>> AddUnitDefition(string name, int defaultAmount);
-        Task<List<UnitDefinition>> DeleteUnitDefinition(Guid Guid);
+        Task<List<UnitDefinitionDTO>> AddUnitDefition(string name, int defaultAmount);
+        Task<List<UnitDefinitionDTO>> DeleteUnitDefinition(Guid Guid);
 
-        Task<List<UnitDefinition>> GetUnitDefinitions();
-        Task<UnitDefinition> GetSingleUnitDefiniton(Guid Guid);
+        Task<List<UnitDefinitionDTO>> GetUnitDefinitions();
+        Task<UnitDefinitionDTO> GetSingleUnitDefiniton(Guid Guid);
 
 
 

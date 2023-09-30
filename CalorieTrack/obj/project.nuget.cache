@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NGwQZ9twX+4xAWlbZTVRE27qjr6A6bgUfTQCDTWrQRTYwFFbAtUEf/UEZKkHHhd7uhVOqS4MeKvSFwZQ8tfByA==",
+  "dgSpecHash": "ceWhnge5BeWc/w7qPr88i9YXxVJFAbKHEu3lMjJCBMpXddy1LNhAB87P4nObrEKvRZtetoEU1k7QmZHOUFv1HQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mariu\\source\\repos\\CalorieTrack\\CalorieTrack\\CalorieTrack.csproj",
+  "projectFilePath": "C:\\work\\calorieTrackAPI\\CalorieTrack\\CalorieTrack.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mariu\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\mariu\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
