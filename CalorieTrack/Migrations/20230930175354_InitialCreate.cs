@@ -90,6 +90,7 @@ namespace CalorieTrack.Migrations
                     Protein = table.Column<int>(type: "int", nullable: false),
                     Carbohydrates = table.Column<int>(type: "int", nullable: false),
                     Fat = table.Column<int>(type: "int", nullable: false),
+                    Calories = table.Column<int>(type: "int", nullable: false),
                     UnitDefinitionGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>

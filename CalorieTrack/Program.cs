@@ -1,6 +1,6 @@
 using CalorieTrack.Data;
-using CalorieTrack.Interfaces.Services;
 using CalorieTrack.Services;
+using CalorieTrack.Services.interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUnitDefinitionService, UnitDefinitionService>();
 builder.Services.AddScoped<INutritionService, NutritionService>();
+builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddDbContext<DataContext>();
 
 var app = builder.Build();

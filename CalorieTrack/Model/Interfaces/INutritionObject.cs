@@ -1,4 +1,4 @@
-﻿namespace CalorieTrack.Interfaces.Model
+﻿namespace CalorieTrack.Model.Interfaces
 {
     public interface INutritionObject
     {

@@ -1,6 +1,6 @@
 ﻿using CalorieTrack.Data;
-using CalorieTrack.Interfaces.Services;
 using CalorieTrack.Model;
+using CalorieTrack.Services.interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CalorieTrack.Services
