@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using CalorieTrack.Interfaces.Model;
+using CalorieTrack.Model.Interfaces;
 
 namespace CalorieTrack.Model
 {
@@ -16,12 +16,13 @@ namespace CalorieTrack.Model
 
         public int AmountOfUnit { get; set; }
 
-        public string barcode { get; set; }
+        public string Barcode { get; set; }
 
+        public Food() { }
         public Food(string name, Guid nutritionGuid, int amountOfUnit, string barcode) {
-            this.Guid = new Guid();
+            this.Guid = Guid.NewGuid();
             this.Name = name;
-            this.barcode = barcode;
+            this.Barcode = barcode;
             this.AmountOfUnit = amountOfUnit;
             this.NutritionGuid= nutritionGuid;
         }

@@ -128,6 +128,9 @@ namespace CalorieTrack.Migrations
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Calories")
+                        .HasColumnType("int");
+
                     b.Property<int>("Carbohydrates")
                         .HasColumnType("int");
 

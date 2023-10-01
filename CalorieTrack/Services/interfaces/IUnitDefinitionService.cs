@@ -1,7 +1,7 @@
 ﻿using CalorieTrack.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace CalorieTrack.Interfaces.Services
+namespace CalorieTrack.Services.interfaces
 {
     public interface IUnitDefinitionService
     {

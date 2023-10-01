@@ -1,2 +1,10 @@
+Oppdatere Databasediagram 
+
+lage mealitemtype tabell og fjerne XOR props
 Hvordan håndtere mengde på food i mealitem?
 Hvordan håndtere søk?
+
+Endringer:
+
+MealItem
+-amount

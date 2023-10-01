@@ -1,5 +1,5 @@
-﻿using CalorieTrack.Interfaces.Services;
-using CalorieTrack.Model;
+﻿using CalorieTrack.Model;
+using CalorieTrack.Services.interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.AccessControl;
@@ -65,12 +65,12 @@ namespace CalorieTrack.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<NutritionDTO>>> CreateNutrition(Nutrition nutrition)
+        public async Task<ActionResult<List<NutritionDTO>>> CreateNutrition([FromBody]  Nutrition nutrition)
         {
             try
             {
-                var result = await _nutritionService.AddNutrition(nutrition);
-
+                // var result = await _nutritionService.AddNutrition(protein, carbohydrates,fat, calories, unitDefinitonGuid);
+                var result = await _nutritionService.AddNutrition(nutrition.Protein, nutrition.Carbohydrates, nutrition.Fat, nutrition.Calories, nutrition.UnitDefinitionGuid);
                 return Ok(result);
 
             }
