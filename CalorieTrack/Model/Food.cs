@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using CalorieTrack.Model.Interfaces;
+using static CalorieTrack.Constants.Enums;
+using CalorieTrack.Constants;
 
 namespace CalorieTrack.Model
 {
@@ -17,6 +19,7 @@ namespace CalorieTrack.Model
         public int AmountOfUnit { get; set; }
 
         public string Barcode { get; set; }
+        public InstanceDefinition InstanceDefinition { get; set; }
 
         public Food() { }
         public Food(string name, Guid nutritionGuid, int amountOfUnit, string barcode) {
@@ -25,7 +28,8 @@ namespace CalorieTrack.Model
             this.Barcode = barcode;
             this.AmountOfUnit = amountOfUnit;
             this.NutritionGuid= nutritionGuid;
-        }
+            this.InstanceDefinition = Enums.InstanceDefinition.Food;
+    }
         public int GetCalories()
         {
             throw new NotImplementedException();

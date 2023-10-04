@@ -1,16 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using static CalorieTrack.Constants.Enums;
 
 namespace CalorieTrack.Model
 {
 
-    public enum DiaryItemType
-    {
-        Meal,
-        Food,
-        Recipe
-    }
-
+    
     public class DiaryItem
     {   
         [Key]
@@ -20,7 +15,8 @@ namespace CalorieTrack.Model
 
         // ALL OF THEESE ARE XOR
 
-        public DiaryItemType ItemType { get; set; }
+        public InstanceDefinition InstanceDefinition { get; set; }
         public Guid ItemGuid { get; set; }
+
     }
 }

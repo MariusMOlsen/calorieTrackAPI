@@ -13,6 +13,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUnitDefinitionService, UnitDefinitionService>();
 builder.Services.AddScoped<INutritionService, NutritionService>();
 builder.Services.AddScoped<IFoodService, FoodService>();
+builder.Services.AddScoped<IMealService, MealService>();
+builder.Services.AddScoped<IMealItemService, MealItemService>();
 builder.Services.AddDbContext<DataContext>();
 
 var app = builder.Build();

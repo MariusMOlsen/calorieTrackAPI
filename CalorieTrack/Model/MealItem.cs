@@ -1,13 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using static CalorieTrack.Constants.Enums;
+using CalorieTrack.DTO;
 
 namespace CalorieTrack.Model
 {
-    public enum MealtemType
-    {
-        Recepie,
-        Food
-    }
+ 
     public class MealItem
     {
 
@@ -17,14 +15,16 @@ namespace CalorieTrack.Model
 
         public Guid MealGuid { get; set; }
        
-        public MealtemType MealItemType { get; set; }
         public Guid ItemGuid { get; set; }
-        public MealItem(Guid MealGuid, MealtemType mealItemType,Guid itemGuid ) { 
+        public InstanceDefinition InstanceDefinition { get; set; }
+
+        public MealItem() { }
+        public MealItem(Guid MealGuid,Guid itemGuid, InstanceDefinition instanceDefinition ) { 
             this.Guid = Guid.NewGuid();
-            this.MealItemType = mealItemType;
             this.MealGuid = MealGuid;
             this.ItemGuid = itemGuid;
-            }
+            this.InstanceDefinition = instanceDefinition;
+    }
 
        
     }

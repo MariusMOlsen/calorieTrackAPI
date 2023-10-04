@@ -4,7 +4,7 @@ using CalorieTrack.Model.Interfaces;
 
 namespace CalorieTrack.Model
 {
-    public class Meal: INutritionObject
+    public class Meal : INutritionObject
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -13,11 +13,12 @@ namespace CalorieTrack.Model
         public Guid NutritionGuid { get; set; }
         public Guid UserGuid { get; set; }
 
-        public Meal(string Name, Guid NutritionGuid, Guid UserGuid) { 
-        this.UserGuid = UserGuid;
+        public Meal(string Name, Guid UserGuid)
+        {
+            this.UserGuid = UserGuid;
             this.Name = Name;
-            this.NutritionGuid = NutritionGuid;
-            this.Guid = new Guid();
+            this.NutritionGuid = Guid.Empty;
+            this.Guid = Guid.NewGuid();
         }
 
         public int GetCalories()

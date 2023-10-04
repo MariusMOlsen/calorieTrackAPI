@@ -31,7 +31,7 @@ namespace CalorieTrack.Migrations
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DiaryGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ItemType = table.Column<int>(type: "int", nullable: false),
+                    InstanceDefinition = table.Column<int>(type: "int", nullable: false),
                     ItemGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -47,7 +47,8 @@ namespace CalorieTrack.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NutritionGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AmountOfUnit = table.Column<int>(type: "int", nullable: false),
-                    barcode = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Barcode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InstanceDefinition = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,8 +75,8 @@ namespace CalorieTrack.Migrations
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MealGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MealItemType = table.Column<int>(type: "int", nullable: false),
-                    ItemGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ItemGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    InstanceDefinition = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -118,7 +119,8 @@ namespace CalorieTrack.Migrations
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NutritionGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UserGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    InstanceDefinition = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

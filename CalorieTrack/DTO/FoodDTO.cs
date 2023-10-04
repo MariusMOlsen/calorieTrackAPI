@@ -1,4 +1,6 @@
-﻿using CalorieTrack.Model;
+﻿using CalorieTrack.Constants;
+using CalorieTrack.Model;
+using static CalorieTrack.Constants.Enums;
 
 namespace CalorieTrack.DTO
 {
@@ -11,6 +13,7 @@ namespace CalorieTrack.DTO
         public int AmountOfUnit { get; set; }
 
         public string Barcode { get; set; }
+        public InstanceDefinition InstanceDefinition { get; set; }
 
         public FoodDTO(Guid guid, string name, Guid nutritionGuid, int amountOfUnit, string barcode)
         {
@@ -19,6 +22,7 @@ namespace CalorieTrack.DTO
             this.NutritionGuid = nutritionGuid;
             this.AmountOfUnit = amountOfUnit;
             this.Barcode = barcode;
+            this.InstanceDefinition = Enums.InstanceDefinition.Food;
         }
 
 
