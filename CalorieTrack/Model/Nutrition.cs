@@ -38,7 +38,7 @@ namespace CalorieTrack.Model
             this.UnitDefinitionGuid = unitDefinitionGuid; 
         }
 
-
+      
         public int GetCalories()
         {
             throw new NotImplementedException();

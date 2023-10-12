@@ -14,13 +14,13 @@ namespace CalorieTrack.Services
         private readonly DataContext _context;
         public MealItemService(DataContext context) { _context = context; }
 
-        public async Task<List<MealItemDTO>?> AddMealItem(Guid mealGuid, Guid itemGuid, InstanceDefinition instanceDefiniton)
+        public async Task<List<MealItemDTO>?> AddMealItem(Guid mealGuid, Guid itemGuid, int amount,  InstanceDefinition instanceDefiniton)
         {
             if(mealGuid == Guid.Empty || itemGuid == Guid.Empty)
             {
                 return null;
             }
-            MealItem mealitem = new MealItem(mealGuid, itemGuid, instanceDefiniton);
+            MealItem mealitem = new MealItem(mealGuid, itemGuid, amount, instanceDefiniton);
             _context.mealsItem.Add(mealitem);
             await _context.SaveChangesAsync();
             List<MealItem> mealItemList = await _context.mealsItem.ToListAsync();

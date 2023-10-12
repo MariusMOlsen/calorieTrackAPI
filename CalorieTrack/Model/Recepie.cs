@@ -18,10 +18,10 @@ namespace CalorieTrack.Model
         public Guid UserGuid { get; set; }
         public InstanceDefinition InstanceDefinition { get; set; }
 
-        public Recepie(string name, Guid nutritionGuid, Guid UserGuid) {
+        public Recepie(string name, Guid UserGuid) {
             this.Name = name;
             this.UserGuid = UserGuid;
-            this.NutritionGuid = nutritionGuid;
+            this.NutritionGuid = Guid.Empty;
             this.Guid = new Guid();
             this.InstanceDefinition = Enums.InstanceDefinition.Recepie;
         }

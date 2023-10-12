@@ -16,14 +16,17 @@ namespace CalorieTrack.Model
         public Guid MealGuid { get; set; }
        
         public Guid ItemGuid { get; set; }
+
+        public int Amount { get; set; }
         public InstanceDefinition InstanceDefinition { get; set; }
 
         public MealItem() { }
-        public MealItem(Guid MealGuid,Guid itemGuid, InstanceDefinition instanceDefinition ) { 
+        public MealItem(Guid MealGuid,Guid itemGuid,int amount, InstanceDefinition instanceDefinition ) { 
             this.Guid = Guid.NewGuid();
             this.MealGuid = MealGuid;
             this.ItemGuid = itemGuid;
             this.InstanceDefinition = instanceDefinition;
+            this.Amount= amount;
     }
 
        

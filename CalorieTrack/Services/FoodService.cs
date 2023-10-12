@@ -69,7 +69,11 @@ namespace CalorieTrack.Services
             return FoodDTO.convertFromEntityToDTO(foundFood);
         }
         
-
+        public static List<Food> GetFoodListByGuidList(List<Guid> guidList, DataContext dataContext)
+        {
+            List<Food> foodList = dataContext.Foods.Where(food => guidList.Contains(food.Guid)).ToList();
+            return foodList;
+        }
     }
 }
 

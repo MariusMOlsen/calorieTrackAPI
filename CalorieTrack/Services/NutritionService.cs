@@ -73,11 +73,37 @@ namespace CalorieTrack.Services
 
         }
 
-        public async Task<List<NutritionDTO>> GetNutritionListByGuidList(List<Guid> guidList)
+        public async Task<List<NutritionDTO>> GetNutritionDTOListByGuidList(List<Guid> guidList)
         {
             List<Nutrition> nutritionList = await _context.Nutritions.Where(n => guidList.Contains(n.Guid)).ToListAsync();
             return NutritionDTO.convertFromEntityListToDTOList(nutritionList);
         }
+
+        public static List<Nutrition> GetNutritionListByGuidList(List<Guid> guidList, DataContext dataContext)
+        {
+            List<Nutrition> nutritionList = dataContext.Nutritions.Where(n => guidList.Contains(n.Guid)).ToList();
+            return nutritionList;
+        }
+
+        public static Nutrition convertNutritionListToSingleObject(List<Nutrition> nutritionList, DataContext dataContext)
+        {
+            int protein = 0;
+            int carbohydrates = 0;
+            int fat = 0;
+            int calories = 0;
+            foreach (Nutrition nutrition in nutritionList)
+            {
+                protein = +nutrition.Protein;
+                carbohydrates = +nutrition.Carbohydrates;
+                fat = +nutrition.Fat;
+                calories = +nutrition.Calories;
+            }
+            Nutrition nutritionObject = new Nutrition(protein, carbohydrates, fat, calories);
+            dataContext.Nutritions.Add(nutritionObject);
+            dataContext.SaveChanges();
+            return nutritionObject;
+        }
+
     }
 }
 

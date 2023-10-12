@@ -12,12 +12,14 @@ namespace CalorieTrack.Model
 
         public Guid RecepieGuid { get; set; }
         public Guid FoodGuid { get; set; }
+        public int Amount { get; set; }
 
-        public RecepieItem (Guid recepieGuid, Guid foodGuid)
+        public RecepieItem (Guid recepieGuid, Guid foodGuid, int amount)
         {
             this.Guid = new Guid();
             this.FoodGuid = foodGuid;
             this.RecepieGuid= recepieGuid;
+            this.Amount = amount;
         }
 
     }

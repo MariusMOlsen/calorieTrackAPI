@@ -15,6 +15,8 @@ builder.Services.AddScoped<INutritionService, NutritionService>();
 builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IMealService, MealService>();
 builder.Services.AddScoped<IMealItemService, MealItemService>();
+builder.Services.AddScoped<IRecepieItemService, RecepieItemService>();
+builder.Services.AddScoped<IRecepieService, RecepieService>();
 builder.Services.AddDbContext<DataContext>();
 
 var app = builder.Build();
