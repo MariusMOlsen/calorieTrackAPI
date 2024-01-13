@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CalorieTrack.Data
 {
+
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
@@ -19,12 +20,14 @@ namespace CalorieTrack.Data
         public DbSet<Food> Foods { get; set; }
         public DbSet<UnitDefinition> UnitDefinition { get; set; }
 
-        public DbSet<Diary> diaries { get; set; }
+        public DbSet<Diary> Diaries { get; set; }
         public DbSet<DiaryItem> DiaryItems { get; set; }
-        public DbSet<Meal> meals { get; set; }
-        public DbSet<MealItem> mealsItem { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<MealItem> MealsItem { get; set; }
         public DbSet<Recepie> Recepies { get; set; }
         public DbSet<RecepieItem> RecepieItems { get; set; }
+
+
 
 
     }

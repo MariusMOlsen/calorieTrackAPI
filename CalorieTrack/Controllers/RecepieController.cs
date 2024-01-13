@@ -10,16 +10,17 @@ namespace CalorieTrack.Controllers
     [ApiController]
     public class RecepieController : ControllerBase
     {
-       private readonly IRecepieService _recepieService;
+        private readonly IRecepieService _recepieService;
         public RecepieController(IRecepieService recepieService) { _recepieService = recepieService; }
 
         [HttpPost]
-       public async Task<ActionResult<RecepieDTO>>  AddRecepie([FromBody]Recepie recepie)
+        public async Task<ActionResult<RecepieDTO>> AddRecepie([FromBody] Recepie recepie)
 
         {
             Guid userGuid = Guid.Empty;
             var result = _recepieService.AddRecepie(recepie.Name, userGuid);
-            if(result == null) {
+            if (result == null)
+            {
                 return BadRequest(result);
             }
             return Ok(result);
@@ -29,12 +30,12 @@ namespace CalorieTrack.Controllers
         public async Task<ActionResult<RecepieDTO>> UpdateRecepieNutrition(Guid guid)
         {
             var result = await _recepieService.UpdateRecepieNutrition(guid);
-            if(result == null)
+            if (result == null)
             {
                 return NotFound();
             }
 
-            return Ok(result); 
+            return Ok(result);
         }
 
         [HttpDelete("{guid}")]

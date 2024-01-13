@@ -33,18 +33,27 @@ namespace CalorieTrack.Migrations
                     b.Property<Guid>("NutritionGuid")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Sections")
+                        .HasColumnType("int");
+
                     b.Property<double>("Weight")
                         .HasColumnType("float");
 
+                    b.Property<Guid>("userGuid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Guid");
 
-                    b.ToTable("diaries");
+                    b.ToTable("Diaries");
                 });
 
             modelBuilder.Entity("CalorieTrack.Model.DiaryItem", b =>
                 {
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("DiaryGuid")
                         .HasColumnType("uniqueidentifier");
@@ -104,13 +113,16 @@ namespace CalorieTrack.Migrations
 
                     b.HasKey("Guid");
 
-                    b.ToTable("meals");
+                    b.ToTable("Meals");
                 });
 
             modelBuilder.Entity("CalorieTrack.Model.MealItem", b =>
                 {
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
 
                     b.Property<int>("InstanceDefinition")
                         .HasColumnType("int");
@@ -123,7 +135,7 @@ namespace CalorieTrack.Migrations
 
                     b.HasKey("Guid");
 
-                    b.ToTable("mealsItem");
+                    b.ToTable("MealsItem");
                 });
 
             modelBuilder.Entity("CalorieTrack.Model.Nutrition", b =>
@@ -178,6 +190,9 @@ namespace CalorieTrack.Migrations
                 {
                     b.Property<Guid>("Guid")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("FoodGuid")
                         .HasColumnType("uniqueidentifier");

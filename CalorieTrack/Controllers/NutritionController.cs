@@ -38,7 +38,7 @@ namespace CalorieTrack.Controllers
         [HttpGet("by-guids")]
         public async Task<ActionResult<List<NutritionDTO>>> GetNutritionListByGuidList([FromQuery] List<Guid> guidList)
         {
-            var result = await _nutritionService.GetNutritionListByGuidList(guidList);
+            var result = await _nutritionService.GetNutritionDTOListByGuidList(guidList);
             return Ok(result);
         }
 

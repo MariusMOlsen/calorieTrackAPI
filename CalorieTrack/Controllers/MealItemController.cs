@@ -17,12 +17,12 @@ namespace CalorieTrack.Controllers
         public MealItemController(MealItemService mealItemService) { _mealItemService = mealItemService; }
 
         [HttpPost]
-        
-        public async Task<ActionResult<List<MealItemDTO>>> AddMealItem(Guid mealGuid, Guid itemGuid, InstanceDefinition instanceDefinition)
+
+        public async Task<ActionResult<List<MealItemDTO>>> AddMealItem(Guid mealGuid, Guid itemGuid,int amount, InstanceDefinition instanceDefinition)
         {
             try
             {
-                var result = await _mealItemService.AddMealItem(mealGuid, itemGuid, instanceDefinition);
+                var result = await _mealItemService.AddMealItem(mealGuid, itemGuid, amount, instanceDefinition);
                 if (result == null)
                 {
                     return BadRequest();
@@ -41,7 +41,7 @@ namespace CalorieTrack.Controllers
         public async Task<ActionResult<List<MealItemDTO>>> GetMealListByMealGuid(Guid guid)
         {
             var result = await _mealItemService.GetMealItemListByMealGuid(guid);
-            if(result == null)
+            if (result == null)
             {
                 return NotFound();
             }

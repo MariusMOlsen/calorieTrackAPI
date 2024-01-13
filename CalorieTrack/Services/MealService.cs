@@ -16,48 +16,48 @@ namespace CalorieTrack.Services
         {
             Meal meal = new Meal(name, userGuid);
 
-            _context.meals.Add(meal);
+            _context.Meals.Add(meal);
             await _context.SaveChangesAsync();
-            List<Meal> mealList = await _context.meals.ToListAsync();
+            List<Meal> mealList = await _context.Meals.ToListAsync();
             return MealDTO.convertFromEntityToDTO(meal);
         }
 
         public async Task<List<MealDTO>?> ChangeName(Guid guid, string name)
         {
-            Meal meal = await _context.meals.FindAsync(guid);
+            Meal meal = await _context.Meals.FindAsync(guid);
             if (meal == null || name == "")
             {
                 return null;
             }
             meal.Name = name;
             await _context.SaveChangesAsync();
-            List<Meal> mealList = await _context.meals.ToListAsync();
+            List<Meal> mealList = await _context.Meals.ToListAsync();
             return MealDTO.convertFromEntityListToDTOList(mealList);
 
         }
 
         public async Task<List<MealDTO>?> DeleteMeal(Guid guid)
         {
-            Meal meal = await _context.meals.FindAsync(guid);
+            Meal meal = await _context.Meals.FindAsync(guid);
             if (meal == null)
             {
                 return null;
             }
-            _context.meals.Remove(meal);
+            _context.Meals.Remove(meal);
             await _context.SaveChangesAsync();
-            List<Meal> mealList = await _context.meals.ToListAsync();
+            List<Meal> mealList = await _context.Meals.ToListAsync();
             return MealDTO.convertFromEntityListToDTOList(mealList);
         }
 
         public async Task<List<MealDTO>> GetAllMeals()
         {
-            List<Meal> mealList = await _context.meals.ToListAsync();
+            List<Meal> mealList = await _context.Meals.ToListAsync();
             return MealDTO.convertFromEntityListToDTOList(mealList);
         }
 
         public async Task<MealDTO> GetSingleMeal(Guid guid)
         {
-            Meal meal = await _context.meals.FindAsync(guid);
+            Meal meal = await _context.Meals.FindAsync(guid);
             if (meal == null)
             {
                 return null;
@@ -69,7 +69,7 @@ namespace CalorieTrack.Services
         {
             // User table is not created yet
             // List<Meal> mealList = await  _context.Users.Where(c => c.Guid == userGuid).ToList();
-            List<Meal> mealList = await _context.meals.ToListAsync();
+            List<Meal> mealList = await _context.Meals.ToListAsync();
             return MealDTO.convertFromEntityListToDTOList(mealList);
         }
     }

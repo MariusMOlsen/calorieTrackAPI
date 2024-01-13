@@ -11,12 +11,15 @@ namespace CalorieTrack.DTO
 
         public Guid ItemGuid { get; set; }
         public InstanceDefinition InstanceDefinition { get; set; }
-        public MealItemDTO(Guid guid, Guid MealGuid, Guid itemGuid, InstanceDefinition instanceDefinition)
+
+        public int Amount { get; set; }
+        public MealItemDTO(Guid guid, Guid MealGuid, Guid itemGuid, InstanceDefinition instanceDefinition, int amount)
         {
             this.Guid = guid;
             this.MealGuid = MealGuid;
             this.ItemGuid = itemGuid;
             this.InstanceDefinition = instanceDefinition;
+            this.Amount = amount;
         }
 
         public static List<MealItemDTO> convertFromEntityListToDTOList(List<MealItem> mealList)
@@ -24,7 +27,7 @@ namespace CalorieTrack.DTO
             List<MealItemDTO> DTOList = new List<MealItemDTO>();
             foreach (MealItem meal in mealList)
             {
-                DTOList.Add(new MealItemDTO(meal.Guid, meal.MealGuid, meal.ItemGuid, meal.InstanceDefinition));
+                DTOList.Add(new MealItemDTO(meal.Guid, meal.MealGuid, meal.ItemGuid, meal.InstanceDefinition, meal.Amount));
             }
 
             return DTOList;
@@ -32,7 +35,7 @@ namespace CalorieTrack.DTO
 
         public static MealItemDTO convertFromEntityToDTO(MealItem meal)
         {
-            return new MealItemDTO(meal.Guid, meal.MealGuid, meal.ItemGuid, meal.InstanceDefinition);
+            return new MealItemDTO(meal.Guid, meal.MealGuid, meal.ItemGuid, meal.InstanceDefinition, meal.Amount);
         }
     }
 }
