@@ -29,7 +29,7 @@ namespace CalorieTrack.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<ActionResult<RecepieItemDTO>> EditRecepieItem([FromBody] RecepieItem recepieItem)
         {
             var result = await _recepieItemService.EditRecepieItem(recepieItem);

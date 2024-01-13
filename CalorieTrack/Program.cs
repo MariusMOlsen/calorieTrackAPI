@@ -17,6 +17,7 @@ builder.Services.AddScoped<IMealService, MealService>();
 builder.Services.AddScoped<IMealItemService, MealItemService>();
 builder.Services.AddScoped<IRecepieItemService, RecepieItemService>();
 builder.Services.AddScoped<IRecepieService, RecepieService>();
+builder.Services.AddScoped<IDiaryService, DiaryService>();
 builder.Services.AddDbContext<DataContext>();
 
 var app = builder.Build();

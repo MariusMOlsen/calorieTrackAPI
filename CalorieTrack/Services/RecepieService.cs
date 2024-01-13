@@ -28,6 +28,7 @@ namespace CalorieTrack.Services
                 return null;
             }
 
+            recepie.NutritionGuid = guid;
             List<Guid> RecepieItemFoodGuids = RecepieItemService.GetFoodGuidsByRecepieGuid(guid, _context);
             List<Food> foodList = FoodService.GetFoodListByGuidList(RecepieItemFoodGuids, _context);
             List<Guid> nutritionGuidList = new List<Guid>();

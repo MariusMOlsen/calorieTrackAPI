@@ -14,46 +14,46 @@ namespace CalorieTrack.Services
         private readonly DataContext _context;
         public MealItemService(DataContext context) { _context = context; }
 
-        public async Task<List<MealItemDTO>?> AddMealItem(Guid mealGuid, Guid itemGuid, int amount,  InstanceDefinition instanceDefiniton)
+        public async Task<List<MealItemDTO>?> AddMealItem(Guid mealGuid, Guid itemGuid, int amount, InstanceDefinition instanceDefiniton)
         {
-            if(mealGuid == Guid.Empty || itemGuid == Guid.Empty)
+            if (mealGuid == Guid.Empty || itemGuid == Guid.Empty)
             {
                 return null;
             }
             MealItem mealitem = new MealItem(mealGuid, itemGuid, amount, instanceDefiniton);
-            _context.mealsItem.Add(mealitem);
+            _context.MealsItem.Add(mealitem);
             await _context.SaveChangesAsync();
-            List<MealItem> mealItemList = await _context.mealsItem.ToListAsync();
+            List<MealItem> mealItemList = await _context.MealsItem.ToListAsync();
             return MealItemDTO.convertFromEntityListToDTOList(mealItemList);
         }
 
         public async Task<List<MealItemDTO>?> DeleteMealItem(Guid guid)
         {
-            MealItem mealItem = await _context.mealsItem.FindAsync(guid);
-            if(mealItem == null)
+            MealItem mealItem = await _context.MealsItem.FindAsync(guid);
+            if (mealItem == null)
             {
                 return null;
             }
-            _context.mealsItem.Remove(mealItem);
+            _context.MealsItem.Remove(mealItem);
             await _context.SaveChangesAsync();
-            List<MealItem> mealItemList = await _context.mealsItem.ToListAsync();
+            List<MealItem> mealItemList = await _context.MealsItem.ToListAsync();
             return MealItemDTO.convertFromEntityListToDTOList(mealItemList);
         }
 
         public async Task<List<MealItemDTO>> GetMealItemListByMealGuid(Guid mealGuid)
         {
-            List<MealItem> mealItemList = await _context.mealsItem.Where(e => e.MealGuid == mealGuid).ToListAsync();
-           return MealItemDTO.convertFromEntityListToDTOList(mealItemList);
+            List<MealItem> mealItemList = await _context.MealsItem.Where(e => e.MealGuid == mealGuid).ToListAsync();
+            return MealItemDTO.convertFromEntityListToDTOList(mealItemList);
         }
 
         public async Task<MealItemDTO> GetSingleMealItemByGuid(Guid guid)
         {
-            MealItem mealItem = await _context.mealsItem.FindAsync(guid);
+            MealItem mealItem = await _context.MealsItem.FindAsync(guid);
             return MealItemDTO.convertFromEntityToDTO(mealItem);
         }
 
- 
+
     }
 
-  
+
 }

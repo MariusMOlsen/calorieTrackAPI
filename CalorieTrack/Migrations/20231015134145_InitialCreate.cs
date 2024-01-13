@@ -12,17 +12,19 @@ namespace CalorieTrack.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "diaries",
+                name: "Diaries",
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Weight = table.Column<double>(type: "float", nullable: false),
-                    NutritionGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    NutritionGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    userGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Sections = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_diaries", x => x.Guid);
+                    table.PrimaryKey("PK_Diaries", x => x.Guid);
                 });
 
             migrationBuilder.CreateTable(
@@ -31,6 +33,7 @@ namespace CalorieTrack.Migrations
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DiaryGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false),
                     InstanceDefinition = table.Column<int>(type: "int", nullable: false),
                     ItemGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -56,7 +59,7 @@ namespace CalorieTrack.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "meals",
+                name: "Meals",
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -66,21 +69,22 @@ namespace CalorieTrack.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_meals", x => x.Guid);
+                    table.PrimaryKey("PK_Meals", x => x.Guid);
                 });
 
             migrationBuilder.CreateTable(
-                name: "mealsItem",
+                name: "MealsItem",
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MealGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ItemGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false),
                     InstanceDefinition = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_mealsItem", x => x.Guid);
+                    table.PrimaryKey("PK_MealsItem", x => x.Guid);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,7 +109,8 @@ namespace CalorieTrack.Migrations
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RecepieGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FoodGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    FoodGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -145,7 +150,7 @@ namespace CalorieTrack.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "diaries");
+                name: "Diaries");
 
             migrationBuilder.DropTable(
                 name: "DiaryItems");
@@ -154,10 +159,10 @@ namespace CalorieTrack.Migrations
                 name: "Foods");
 
             migrationBuilder.DropTable(
-                name: "meals");
+                name: "Meals");
 
             migrationBuilder.DropTable(
-                name: "mealsItem");
+                name: "MealsItem");
 
             migrationBuilder.DropTable(
                 name: "Nutritions");
