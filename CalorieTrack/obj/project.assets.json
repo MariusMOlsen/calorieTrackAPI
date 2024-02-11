@@ -1147,6 +1147,42 @@
             "rid": "win"
           }
         }
+      },
+      "CalorieTrack.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "CalorieTrack.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/CalorieTrack.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CalorieTrack.Application.dll": {}
+        }
+      },
+      "CalorieTrack.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/CalorieTrack.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CalorieTrack.Domain.dll": {}
+        }
+      },
+      "CalorieTrack.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "CalorieTrack.Application": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/CalorieTrack.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CalorieTrack.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -3294,10 +3330,27 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "CalorieTrack.Application/1.0.0": {
+      "type": "project",
+      "path": "../CalorieTrack.Application/CalorieTrack.Application.csproj",
+      "msbuildProject": "../CalorieTrack.Application/CalorieTrack.Application.csproj"
+    },
+    "CalorieTrack.Domain/1.0.0": {
+      "type": "project",
+      "path": "../CalorieTrack.Domain/CalorieTrack.Domain.csproj",
+      "msbuildProject": "../CalorieTrack.Domain/CalorieTrack.Domain.csproj"
+    },
+    "CalorieTrack.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../CalorieTrack.Infrastructure/CalorieTrack.Infrastructure.csproj",
+      "msbuildProject": "../CalorieTrack.Infrastructure/CalorieTrack.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "CalorieTrack.Application >= 1.0.0",
+      "CalorieTrack.Infrastructure >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 7.0.11",
       "Microsoft.EntityFrameworkCore >= 7.0.11",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.11",
@@ -3312,9 +3365,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\work\\calorieTrackAPI\\CalorieTrack\\CalorieTrack.csproj",
-      "projectName": "CalorieTrack",
-      "projectPath": "C:\\work\\calorieTrackAPI\\CalorieTrack\\CalorieTrack.csproj",
+      "projectUniqueName": "C:\\work\\calorieTrackAPI\\CalorieTrack\\CalorieTrack.Api.csproj",
+      "projectName": "CalorieTrack.Api",
+      "projectPath": "C:\\work\\calorieTrackAPI\\CalorieTrack\\CalorieTrack.Api.csproj",
       "packagesPath": "C:\\Users\\mariu\\.nuget\\packages\\",
       "outputPath": "C:\\work\\calorieTrackAPI\\CalorieTrack\\obj\\",
       "projectStyle": "PackageReference",
@@ -3336,7 +3389,14 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\work\\calorieTrackAPI\\CalorieTrack.Application\\CalorieTrack.Application.csproj": {
+              "projectPath": "C:\\work\\calorieTrackAPI\\CalorieTrack.Application\\CalorieTrack.Application.csproj"
+            },
+            "C:\\work\\calorieTrackAPI\\CalorieTrack.Infrastructure\\CalorieTrack.Infrastructure.csproj": {
+              "projectPath": "C:\\work\\calorieTrackAPI\\CalorieTrack.Infrastructure\\CalorieTrack.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

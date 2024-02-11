@@ -4,6 +4,8 @@ using CalorieTrack.Services.interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -20,6 +22,20 @@ builder.Services.AddScoped<IRecepieService, RecepieService>();
 builder.Services.AddScoped<IDiaryService, DiaryService>();
 builder.Services.AddDbContext<DataContext>();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policyBuilder =>
+                      {
+                      policyBuilder.WithOrigins("http://localhost:4200");
+                      policyBuilder.AllowAnyHeader();
+                          policyBuilder.AllowAnyMethod ();
+                          policyBuilder.AllowCredentials();
+                      });
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,4 +51,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseCors(MyAllowSpecificOrigins);
 app.Run();

@@ -17,4 +17,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CalorieTrack.Application\CalorieTrack.Application.csproj" />
+    <ProjectReference Include="..\CalorieTrack.Infrastructure\CalorieTrack.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
