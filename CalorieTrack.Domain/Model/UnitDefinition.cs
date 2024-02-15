@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 
-namespace CalorieTrack.Model
+namespace CalorieTrack.Domain.Model
 {
     public class UnitDefinition
     {

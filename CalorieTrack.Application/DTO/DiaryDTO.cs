@@ -1,4 +1,5 @@
-﻿using CalorieTrack.Model;
+﻿using CalorieTrack.Domain.Model;
+using CalorieTrack.Model;
 
 namespace CalorieTrack.DTO
 {
@@ -14,7 +15,7 @@ namespace CalorieTrack.DTO
      
         public DiaryDTO(Guid guid,DateTime date, double weight, Guid nutritionGuid, Guid userGuid, int sections)
         {
-            this.Guid = Guid.NewGuid();
+            this.Guid = guid;
             this.Date = date;
             this.Weight = weight;
             this.NutritionGuid = nutritionGuid;

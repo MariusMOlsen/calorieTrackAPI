@@ -4,7 +4,7 @@ using CalorieTrack.Model.Interfaces;
 using static CalorieTrack.Constants.Enums;
 using CalorieTrack.Constants;
 
-namespace CalorieTrack.Model
+namespace CalorieTrack.Domain.Model
 {
     public class Food: INutritionObject
     {

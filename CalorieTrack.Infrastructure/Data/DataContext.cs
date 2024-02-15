@@ -1,10 +1,13 @@
-﻿using CalorieTrack.Model;
+﻿
+using CalorieTrack.Application.Common.Interfaces;
+using CalorieTrack.Domain.Model;
+using CalorieTrack.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace CalorieTrack.Data
 {
 
-    public class DataContext : DbContext
+    public class DataContext : DbContext, IUnitOfWork
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
@@ -15,6 +18,12 @@ namespace CalorieTrack.Data
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer("Server=DESKTOP-C7T317I\\SQLEXPRESS02;Database=SQLEXPRESS02;Trusted_Connection=True;TrustServerCertificate=true;");
         }
+
+        public async Task CommitChangesAsync()
+        {
+            await SaveChangesAsync();
+        }
+
 
         public DbSet<Nutrition> Nutritions { get; set; }
         public DbSet<Food> Foods { get; set; }

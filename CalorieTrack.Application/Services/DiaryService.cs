@@ -1,4 +1,6 @@
-﻿using CalorieTrack.Data;
+﻿using CalorieTrack.Application.Common.Interfaces;
+using CalorieTrack.Data;
+using CalorieTrack.Domain.Model;
 using CalorieTrack.DTO;
 using CalorieTrack.Model;
 using CalorieTrack.Services.interfaces;
@@ -8,11 +10,13 @@ namespace CalorieTrack.Services
 {
     public class DiaryService: IDiaryService
     {
-        private readonly DataContext _context;
+        private readonly IDiaryRepository _diaryRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DiaryService(DataContext context)
+        public DiaryService(IDiaryRepository context, IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _diaryRepository = context;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<List<DiaryDTO>> GetDiaryList(DateTime? dateInput = null)
@@ -30,9 +34,8 @@ namespace CalorieTrack.Services
             DateTime endDate = specificDate.AddDays(50);
 
             // Query existing diaries for the specific user and date range
-            var existingDiaries = _context.Diaries
-                .Where(d => d.userGuid == userGuid && d.Date >= startDate && d.Date <= endDate)
-                .ToList();
+            List<Diary> existingDiaries = await _diaryRepository.getDiariesListByIdBetweenDate(userGuid, startDate, endDate);
+                
 
             // Extract the dates from the existing diaries
             var existingDates = existingDiaries.Select(d => d.Date).ToList();
@@ -46,23 +49,16 @@ namespace CalorieTrack.Services
             // Create Diary entities for missing dates and add them to the context
             foreach (var date in missingDates)
             {
-                _context.Diaries.Add(new Diary(
-
-                   userGuid,
-                   date)
-                // Other properties as needed
-                );
+                _diaryRepository.AddToDiary(userGuid, date);
             }
 
             // Save changes to the database to persist the new Diary entries
-           await _context.SaveChangesAsync();
+            await _unitOfWork.CommitChangesAsync();
 
             // Query the diaries again to include the newly created entries
-            var updatedDiaries = _context.Diaries
-                .Where(d => d.userGuid == userGuid && d.Date >= startDate && d.Date <= endDate)
-                .ToList();
-        
-           return DiaryDTO.convertFromEntityListToDTOList(updatedDiaries);
+            List<Diary> updatedDiaries = await _diaryRepository.getDiariesListByIdBetweenDate(userGuid, startDate, endDate);
+
+            return DiaryDTO.convertFromEntityListToDTOList(updatedDiaries);
         }
     
     }

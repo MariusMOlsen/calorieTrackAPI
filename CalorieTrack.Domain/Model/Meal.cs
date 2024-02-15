@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using CalorieTrack.Model.Interfaces;
 
-namespace CalorieTrack.Model
+namespace CalorieTrack.Domain.Model
 {
     public class Meal : INutritionObject
     {

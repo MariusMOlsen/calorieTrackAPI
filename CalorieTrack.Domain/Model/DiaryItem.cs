@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using static CalorieTrack.Constants.Enums;
 
-namespace CalorieTrack.Model
+namespace CalorieTrack.Domain.Model
 {
 
     

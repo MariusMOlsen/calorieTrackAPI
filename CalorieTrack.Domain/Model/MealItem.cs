@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using static CalorieTrack.Constants.Enums;
-using CalorieTrack.DTO;
 
-namespace CalorieTrack.Model
+namespace CalorieTrack.Domain.Model
 {
  
     public class MealItem
