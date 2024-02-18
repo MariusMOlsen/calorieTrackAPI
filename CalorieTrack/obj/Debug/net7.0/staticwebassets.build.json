@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "IIlMpEFSocbhDrSjRGVL37Cgn4whX6hgaztaCTIgCUg=",
-  "Source": "CalorieTrack",
-  "BasePath": "_content/CalorieTrack",
+  "Hash": "je6CIypHit4kfEySkRkoVf24skmWz929vWQS+zx+3qI=",
+  "Source": "CalorieTrack.Api",
+  "BasePath": "_content/CalorieTrack.Api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

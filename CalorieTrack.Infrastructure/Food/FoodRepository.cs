@@ -38,7 +38,7 @@ namespace CalorieTrack.Infrastructure
         {
             _context.Foods.Remove(food);
         }
-        ø
+        
         public async Task<List<Food>?> GetFoodListByGuidList(List<Guid> guidList)
         {
                List<Food> foodList = await _context.Foods.Where(food => guidList.Contains(food.Guid)).ToListAsync();

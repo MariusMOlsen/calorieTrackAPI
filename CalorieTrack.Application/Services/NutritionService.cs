@@ -1,53 +1,55 @@
-﻿using CalorieTrack.Data;
+﻿
+using CalorieTrack.Application.Common.Interfaces;
+using CalorieTrack.Domain.Model;
 using CalorieTrack.Model;
 using CalorieTrack.Services.interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace CalorieTrack.Services
 {
     public class NutritionService : INutritionService
     {
-        private readonly DataContext _context;
+        private readonly INutritionRepository _nutritionRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public NutritionService(DataContext context)
+        public NutritionService(INutritionRepository nutritionRepository, IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _nutritionRepository = nutritionRepository;
+            _unitOfWork = unitOfWork;
         }
 
 
         public async Task<List<NutritionDTO>> GetAllNutrition()
         {
-            List<Nutrition> nutritonList = await _context.Nutritions.ToListAsync();
+            List<Nutrition> nutritonList = await _nutritionRepository.GetAll();
             return NutritionDTO.convertFromEntityListToDTOList(nutritonList);
         }
 
         public async Task<List<NutritionDTO>> AddNutrition(int protein, int carbohydrates, int fat, int calories, Guid unitDefinitonGuid)
         {
             Nutrition newNutrition = new Nutrition(protein, carbohydrates, fat, calories, unitDefinitonGuid);
-            _context.Nutritions.Add(newNutrition);
-            await _context.SaveChangesAsync();
-            List<Nutrition> nutritonList = await _context.Nutritions.ToListAsync();
+            _nutritionRepository.Add(newNutrition);
+            await _unitOfWork.CommitChangesAsync();
+            List<Nutrition> nutritonList = await _nutritionRepository.GetAll();
             return NutritionDTO.convertFromEntityListToDTOList(nutritonList);
 
         }
 
         public async Task<List<NutritionDTO>?> DeleteNutrition(Guid guid)
         {
-            var nutrition = await _context.Nutritions.FindAsync(guid);
+            var nutrition = await _nutritionRepository.Find(guid);
             if (nutrition == null)
             {
                 return null;
             }
-            _context.Nutritions.Remove(nutrition);
-            await _context.SaveChangesAsync();
-            List<Nutrition> nutritonList = await _context.Nutritions.ToListAsync();
+            _nutritionRepository.Delete(nutrition);
+            await _unitOfWork.CommitChangesAsync();
+            List<Nutrition> nutritonList = await _nutritionRepository.GetAll();
             return NutritionDTO.convertFromEntityListToDTOList(nutritonList);
         }
 
         public async Task<List<NutritionDTO>?> EditNutrition(Nutrition nutritionRequest)
         {
-            Nutrition nutritionObject = await _context.Nutritions.FindAsync(nutritionRequest.Guid);
+            Nutrition? nutritionObject = await _nutritionRepository.Find(nutritionRequest.Guid);
             if (nutritionObject == null)
             {
                 return null;
@@ -57,14 +59,14 @@ namespace CalorieTrack.Services
             nutritionObject.Fat = nutritionRequest.Fat;
             nutritionObject.Calories = nutritionRequest.Calories;
             nutritionObject.Protein = nutritionRequest.Protein;
-            await _context.SaveChangesAsync();
-            List<Nutrition> nutritonList = await _context.Nutritions.ToListAsync();
+            await _unitOfWork.CommitChangesAsync();
+            List<Nutrition> nutritonList = await _nutritionRepository.GetAll();
             return NutritionDTO.convertFromEntityListToDTOList(nutritonList);
         }
 
         public async Task<NutritionDTO?> GetSingleNutrition(Guid guid)
         {
-            Nutrition nutrition = await _context.Nutritions.FindAsync(guid);
+            Nutrition? nutrition = await _nutritionRepository.Find(guid);
             if (nutrition == null)
             {
                 return null;
@@ -75,17 +77,17 @@ namespace CalorieTrack.Services
 
         public async Task<List<NutritionDTO>> GetNutritionDTOListByGuidList(List<Guid> guidList)
         {
-            List<Nutrition> nutritionList = await _context.Nutritions.Where(n => guidList.Contains(n.Guid)).ToListAsync();
+            List<Nutrition> nutritionList = await _nutritionRepository.GetNutritionListByGuidList(guidList);
             return NutritionDTO.convertFromEntityListToDTOList(nutritionList);
         }
 
-        public static List<Nutrition> GetNutritionListByGuidList(List<Guid> guidList, DataContext dataContext)
+        public async static Task<List<Nutrition>> GetNutritionListByGuidList(List<Guid> guidList, INutritionRepository nutritionRepository)
         {
-            List<Nutrition> nutritionList = dataContext.Nutritions.Where(n => guidList.Contains(n.Guid)).ToList();
+            List<Nutrition> nutritionList = await nutritionRepository.GetNutritionListByGuidList(guidList);
             return nutritionList;
         }
 
-        public static Nutrition convertNutritionListToSingleObject(List<Nutrition> nutritionList, DataContext dataContext)
+        public  static async Task<Nutrition> convertNutritionListToSingleObject(List<Nutrition> nutritionList, INutritionRepository nutritionRepository, IUnitOfWork unitOfWork)
         {
             int protein = 0;
             int carbohydrates = 0;
@@ -99,8 +101,8 @@ namespace CalorieTrack.Services
                 calories = +nutrition.Calories;
             }
             Nutrition nutritionObject = new Nutrition(protein, carbohydrates, fat, calories);
-            dataContext.Nutritions.Add(nutritionObject);
-            dataContext.SaveChanges();
+            nutritionRepository.Add(nutritionObject);
+           await  unitOfWork.CommitChangesAsync();
             return nutritionObject;
         }
 

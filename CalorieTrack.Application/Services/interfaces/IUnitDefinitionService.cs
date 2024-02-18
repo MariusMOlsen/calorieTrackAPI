@@ -1,5 +1,4 @@
 ﻿using CalorieTrack.Model;
-using Microsoft.EntityFrameworkCore;
 
 namespace CalorieTrack.Services.interfaces
 {

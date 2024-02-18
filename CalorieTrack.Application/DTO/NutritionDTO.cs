@@ -1,6 +1,4 @@
-﻿using CalorieTrack.DTO.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using CalorieTrack.Domain.Model;
 namespace CalorieTrack.Model
 {
     public class NutritionDTO

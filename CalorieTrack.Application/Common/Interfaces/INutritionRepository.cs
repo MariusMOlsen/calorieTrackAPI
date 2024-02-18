@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using CalorieTrack.Domain.Model;
+using System.Xml.Serialization;
 
 namespace CalorieTrack.Application.Common.Interfaces
 {
-    internal interface INutritionRepository
+    public interface INutritionRepository
     {
+        Task<List<Nutrition>> GetAll();
+
+        void Add(Nutrition nutrition);
+
+        Task<Nutrition?> Find(Guid id);
+
+        void Delete(Nutrition nutrition);
+
+        Task<List<Nutrition>> GetNutritionListByGuidList(List<Guid> guidList);
+      
     }
 }

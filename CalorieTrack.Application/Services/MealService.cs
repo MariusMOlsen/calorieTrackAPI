@@ -1,63 +1,64 @@
-﻿using CalorieTrack.Data;
+﻿using CalorieTrack.Application.Common.Interfaces;
+using CalorieTrack.Domain.Model;
 using CalorieTrack.DTO;
-using CalorieTrack.Model;
 using CalorieTrack.Services.interfaces;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace CalorieTrack.Services
 {
     public class MealService: IMealService
     {
-        private readonly DataContext _context;
+        private readonly IMealRepository _mealRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public MealService(DataContext context) { _context = context; }
+        public MealService(IMealRepository context, IUnitOfWork unitOfWork) { _mealRepository = context; _unitOfWork = unitOfWork; }
 
         public async Task<MealDTO> AddMeal(string name, Guid userGuid)
         {
             Meal meal = new Meal(name, userGuid);
 
-            _context.Meals.Add(meal);
-            await _context.SaveChangesAsync();
-            List<Meal> mealList = await _context.Meals.ToListAsync();
+            _mealRepository.Add(meal);
+            await _unitOfWork.CommitChangesAsync();
             return MealDTO.convertFromEntityToDTO(meal);
         }
 
         public async Task<List<MealDTO>?> ChangeName(Guid guid, string name)
         {
-            Meal meal = await _context.Meals.FindAsync(guid);
+            Meal? meal = await _mealRepository.Find(guid);
             if (meal == null || name == "")
             {
                 return null;
             }
             meal.Name = name;
-            await _context.SaveChangesAsync();
-            List<Meal> mealList = await _context.Meals.ToListAsync();
+            await _unitOfWork.CommitChangesAsync();
+            List<Meal> mealList = await _mealRepository.GetAll();
+            // Could consider to just return entity instead of list here.
             return MealDTO.convertFromEntityListToDTOList(mealList);
 
         }
 
         public async Task<List<MealDTO>?> DeleteMeal(Guid guid)
         {
-            Meal meal = await _context.Meals.FindAsync(guid);
+            Meal? meal = await _mealRepository.Find(guid);
             if (meal == null)
             {
                 return null;
             }
-            _context.Meals.Remove(meal);
-            await _context.SaveChangesAsync();
-            List<Meal> mealList = await _context.Meals.ToListAsync();
+            _mealRepository.Delete(meal);
+            await _unitOfWork.CommitChangesAsync();
+            List<Meal> mealList = await _mealRepository.GetAll();
             return MealDTO.convertFromEntityListToDTOList(mealList);
         }
 
         public async Task<List<MealDTO>> GetAllMeals()
         {
-            List<Meal> mealList = await _context.Meals.ToListAsync();
+            List<Meal> mealList = await _mealRepository.GetAll();
             return MealDTO.convertFromEntityListToDTOList(mealList);
         }
 
-        public async Task<MealDTO> GetSingleMeal(Guid guid)
+        public async Task<MealDTO?> GetSingleMeal(Guid guid)
         {
-            Meal meal = await _context.Meals.FindAsync(guid);
+            Meal? meal = await _mealRepository.Find(guid);
             if (meal == null)
             {
                 return null;
@@ -69,7 +70,7 @@ namespace CalorieTrack.Services
         {
             // User table is not created yet
             // List<Meal> mealList = await  _context.Users.Where(c => c.Guid == userGuid).ToList();
-            List<Meal> mealList = await _context.Meals.ToListAsync();
+            List<Meal> mealList = await _mealRepository.GetAll();
             return MealDTO.convertFromEntityListToDTOList(mealList);
         }
     }

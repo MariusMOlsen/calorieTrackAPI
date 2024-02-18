@@ -1,10 +1,7 @@
 ﻿using CalorieTrack.Application.Common.Interfaces;
-using CalorieTrack.Data;
 using CalorieTrack.Domain.Model;
 using CalorieTrack.DTO;
-using CalorieTrack.Model;
 using CalorieTrack.Services.interfaces;
-using System.Reflection.Metadata.Ecma335;
 
 namespace CalorieTrack.Services
 {

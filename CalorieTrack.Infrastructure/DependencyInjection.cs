@@ -1,12 +1,7 @@
 ﻿using CalorieTrack.Application.Common.Interfaces;
 using CalorieTrack.Data;
-using CalorieTrack.Infrastructure.DiaryItem;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CalorieTrack.Infrastructure
 {
@@ -15,8 +10,18 @@ namespace CalorieTrack.Infrastructure
        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddDbContext<DataContext>();
-            services.AddScoped<IDiaryItemRepository, DiaryItemRepository>();
-           
+            services.AddScoped<IDiaryItemRepository, DiaryItemRepository>(); 
+            services.AddScoped<IDiaryRepository,DiaryRepository>();
+            services.AddScoped<IFoodRepository, FoodRepository>();
+            services.AddScoped<IMealItemRepository,MealItemRepository>();
+            services.AddScoped<IRecepieItemRepository,RecepieItemRepository>();
+            services.AddScoped<IRecepieRepository,RecepieRepository>();
+            services.AddScoped<IMealRepository,MealRepository>();
+            services.AddScoped<INutritionRepository,NutritionRepository>();
+            services.AddScoped<IUnitDefinitionRepository,UnitDefinitionRepository>();
+            services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<DataContext>());
+
+
 
             return services;
         }

@@ -1,48 +1,56 @@
-﻿using CalorieTrack.Data;
+﻿using CalorieTrack.Application.Common.Interfaces;
+using CalorieTrack.Domain.Model;
 using CalorieTrack.Model;
 using CalorieTrack.Services.interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace CalorieTrack.Services
 {
     public class UnitDefinitionService: IUnitDefinitionService
     {
-        private readonly DataContext _context;
+        private readonly IUnitDefinitionRepository _unitDefinitionRepository;
+        private readonly IUnitOfWork _unitOfWork;
         
-        public UnitDefinitionService(DataContext context) { _context = context; }
+        public UnitDefinitionService(IUnitDefinitionRepository unitDefinitionRepository, IUnitOfWork unitOfWork) { 
+            _unitDefinitionRepository = unitDefinitionRepository;
+            _unitOfWork = unitOfWork;
+        }
 
         public async Task<List<UnitDefinitionDTO>> AddUnitDefition(string name, int defaultAmount)
         {
             UnitDefinition unitDefinition = new UnitDefinition(name, defaultAmount);
-            _context.UnitDefinition.Add(unitDefinition);
-            await _context.SaveChangesAsync();
-            List<UnitDefinition> unitDefinitionList  = await _context.UnitDefinition.ToListAsync();
+            _unitDefinitionRepository.Add(unitDefinition);
+            await _unitOfWork.CommitChangesAsync();
+            List<UnitDefinition> unitDefinitionList  = await _unitDefinitionRepository.GetAll();
             return UnitDefinitionDTO.convertFromEntityListToDTOList(unitDefinitionList);
         }
 
         public async Task<List<UnitDefinitionDTO>?> DeleteUnitDefinition(Guid Guid)
         {
-            var foundUnitDefinition = await _context.UnitDefinition.FindAsync(Guid);
+            var foundUnitDefinition = await _unitDefinitionRepository.Find(Guid);
 
             if (foundUnitDefinition == null) {
                     return null;
             
             }
-             _context.UnitDefinition.Remove(foundUnitDefinition);
-            await _context.SaveChangesAsync();
-            List<UnitDefinition> unitDefinitionList = await _context.UnitDefinition.ToListAsync();
+            _unitDefinitionRepository.Delete(foundUnitDefinition);
+            await _unitOfWork.CommitChangesAsync();
+            List<UnitDefinition> unitDefinitionList = await _unitDefinitionRepository.GetAll();
             return UnitDefinitionDTO.convertFromEntityListToDTOList(unitDefinitionList);
         }
         
         public async Task<List<UnitDefinitionDTO>> GetUnitDefinitions()
         {
-            List<UnitDefinition> unitDefinitionList = await _context.UnitDefinition.ToListAsync();
+            List<UnitDefinition> unitDefinitionList = await _unitDefinitionRepository.GetAll();
             return UnitDefinitionDTO.convertFromEntityListToDTOList(unitDefinitionList);
         }
 
-        public async Task<UnitDefinitionDTO> GetSingleUnitDefiniton(Guid Guid)
+        public async Task<UnitDefinitionDTO?> GetSingleUnitDefiniton(Guid Guid)
         {
-            UnitDefinition unitDefinition = await _context.UnitDefinition.FindAsync(Guid);
+            UnitDefinition unitDefinition = await _unitDefinitionRepository.Find(Guid);
+            if(unitDefinition == null)
+            {
+                return null;
+            }
             return UnitDefinitionDTO.convertFromEntityToDTO(unitDefinition);
         }
     }

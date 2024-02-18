@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+using CalorieTrack.Domain.Model;
 
 namespace CalorieTrack.Application.Common.Interfaces
 {
-    internal interface IRecepieRepository
+    public interface IRecepieRepository
     {
+
+        void Add(Recepie recepie);
+        Task<Recepie?> Find(Guid id);
+        void Delete(Recepie recepie);
+
+        Task<List<Recepie>> GetListByUserId(Guid id);
     }
 }

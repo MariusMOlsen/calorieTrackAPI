@@ -1,8 +1,5 @@
 using CalorieTrack.Application;
-using CalorieTrack.Data;
 using CalorieTrack.Infrastructure;
-using CalorieTrack.Services;
-using CalorieTrack.Services.interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

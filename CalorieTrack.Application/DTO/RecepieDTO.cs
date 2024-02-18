@@ -1,4 +1,5 @@
 ﻿using CalorieTrack.Constants;
+using CalorieTrack.Domain.Model;
 using CalorieTrack.Model;
 using System;
 using static CalorieTrack.Constants.Enums;

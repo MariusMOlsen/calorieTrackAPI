@@ -1,4 +1,5 @@
-﻿using CalorieTrack.Model;
+﻿using CalorieTrack.Domain.Model;
+using CalorieTrack.Model;
 using CalorieTrack.Services.interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;

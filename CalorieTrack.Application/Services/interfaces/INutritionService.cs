@@ -1,5 +1,5 @@
-﻿using CalorieTrack.Model;
-using Microsoft.AspNetCore.Mvc;
+﻿using CalorieTrack.Domain.Model;
+using CalorieTrack.Model;
 
 namespace CalorieTrack.Services.interfaces
 {

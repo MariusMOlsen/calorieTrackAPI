@@ -75,7 +75,7 @@ namespace CalorieTrack.Services
             return FoodDTO.convertFromEntityToDTO(foundFood);
         }
 
-        public static async Task<List<Food>> GetFoodListByGuidListAsync(List<Guid> guidList, IFoodRepository dataContext)
+        public static async Task<List<Food>> GetFoodListByGuidList(List<Guid> guidList, IFoodRepository dataContext)
         {
             List<Food>? foodList = await dataContext.GetFoodListByGuidList(guidList);  
             if(foodList == null)

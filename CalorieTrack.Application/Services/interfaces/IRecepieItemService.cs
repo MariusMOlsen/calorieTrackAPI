@@ -1,4 +1,5 @@
-﻿using CalorieTrack.DTO;
+﻿using CalorieTrack.Domain.Model;
+using CalorieTrack.DTO;
 using CalorieTrack.Model;
 
 namespace CalorieTrack.Services.interfaces

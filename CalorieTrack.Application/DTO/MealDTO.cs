@@ -1,4 +1,4 @@
-﻿using CalorieTrack.Model;
+﻿using CalorieTrack.Domain.Model;
 
 namespace CalorieTrack.DTO
 {
@@ -29,7 +29,7 @@ namespace CalorieTrack.DTO
             return DTOList;
         }
 
-        public static MealDTO convertFromEntityToDTO(Meal meal)
+        public static MealDTO? convertFromEntityToDTO(Meal meal)
         {
             return new MealDTO(meal.Name, meal.NutritionGuid, meal.UserGuid,meal.Guid);
         }

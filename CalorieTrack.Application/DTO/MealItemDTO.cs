@@ -1,4 +1,4 @@
-﻿using CalorieTrack.Model;
+﻿using CalorieTrack.Domain.Model;
 using static CalorieTrack.Constants.Enums;
 
 namespace CalorieTrack.DTO
