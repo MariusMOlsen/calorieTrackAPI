@@ -1,14 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using CalorieTrack.Domain.Model.Common;
 using CalorieTrack.Model.Interfaces;
 
 namespace CalorieTrack.Domain.Model
 {
-    public class Diary: INutritionObject
+    public class Diary:  Entity, INutritionObject
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]  
-        public Guid Guid { get; set; }
+        // [Key]
+        // [DatabaseGenerated(DatabaseGeneratedOption.None)]  
+        // public Guid Guid { get; set; }
         public DateTime Date { get; set; }
         public double Weight { get; set; }
         public Guid NutritionGuid { get; set; }

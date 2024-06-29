@@ -1,6 +1,8 @@
 ﻿namespace CalorieTrack.Api.Contracts.Autentication;
 
-public class AuthenticationResponse
-{
-    
-}
+public record AuthenticationResponse(
+    Guid Id,
+    string FirstName,
+    string LastName,
+    string Email,
+    string Token);

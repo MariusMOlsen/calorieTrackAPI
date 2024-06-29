@@ -1,6 +1,5 @@
 ﻿namespace CalorieTrack.Api.Contracts.Autentication;
 
-public class LoginRequest
-{
-    
-}
+public record LoginRequest(
+    string Email,
+    string Password);

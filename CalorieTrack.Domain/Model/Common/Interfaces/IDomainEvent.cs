@@ -1,6 +1,5 @@
-﻿namespace CalorieTrack.Domain.Model.Common.Interfaces;
+﻿using MediatR;
 
-public class IDomainEvent
-{
-    
-}
+namespace CalorieTrack.Domain.Model.Common.Interfaces;
+
+public interface IDomainEvent : INotification;

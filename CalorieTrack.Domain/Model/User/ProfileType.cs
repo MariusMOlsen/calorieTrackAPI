@@ -1,6 +1,10 @@
-﻿namespace CalorieTrack.Domain.Model;
+﻿using Ardalis.SmartEnum;
 
-public class ProfileType
+namespace CalorieTrack.Domain.Model;
+
+public enum ProfileType
 {
-    
+    FreeMember,
+    PremiumMember,
+    Admin
 }

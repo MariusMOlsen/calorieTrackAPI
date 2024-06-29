@@ -5,6 +5,7 @@ using CalorieTrack.Services.interfaces;
 using Microsoft.AspNetCore.Connections.Features;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CalorieTrack.Controllers
 {
@@ -69,6 +70,7 @@ namespace CalorieTrack.Controllers
         }
 
         [HttpGet]
+        [Authorize] 
         public async Task<ActionResult<List<FoodDTO>>> GetAllFoods()
         {
             try

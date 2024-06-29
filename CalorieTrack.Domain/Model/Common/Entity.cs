@@ -1,6 +1,29 @@
-﻿namespace CalorieTrack.Domain.Model.Common;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using CalorieTrack.Domain.Model.Common.Interfaces;
 
-public class Entity
+namespace CalorieTrack.Domain.Model.Common;
+
+public abstract class Entity
 {
-    
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public Guid Guid { get; init; }
+
+    protected readonly List<IDomainEvent> _domainEvents = [];
+
+    protected Entity(Guid id) => Guid = id;
+
+    public List<IDomainEvent> PopDomainEvents()
+    {
+        var copy = _domainEvents.ToList();
+
+        _domainEvents.Clear();
+
+        return copy;
+    }
+
+    protected Entity()
+    {
+    }
 }

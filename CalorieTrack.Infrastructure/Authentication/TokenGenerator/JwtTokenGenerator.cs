@@ -6,11 +6,7 @@ using CalorieTrack.Domain.Model;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-using GymManagement.Application.Common.Interfaces;
-using GymManagement.Domain.Users;
-using GymManagement.Infrastructure.Authentication.Claims;
-
-namespace GymManagement.Api.Authentication.TokenGenerator;
+namespace CalorieTrack.Infrastructure.Authentication.TokenGenerator;
 
 public class JwtTokenGenerator : IJwtTokenGenerator
 {
@@ -29,11 +25,9 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.Name, user.FirstName),
-            new(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new(JwtRegisteredClaimNames.Email, user.Email),
-            new("id", user.Guid.ToString()),
-            new("permissions", "gyms:create"),
-            new("permissions", "gyms:update"),
+            new("id", user.Id),
+            new(ClaimTypes.Role, user.ProfileType.ToString()),
         };
 
  
@@ -44,6 +38,8 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             expires: DateTime.UtcNow.AddMinutes(_jwtSettings.TokenExpirationInMinutes),
             signingCredentials: credentials
         );
+        
+
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
