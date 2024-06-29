@@ -1,11 +1,9 @@
 ﻿using CalorieTrack.Services.interfaces;
 using CalorieTrack.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using CalorieTrack.Application.Common.Behaviours;
+using FluentValidation;
 
 namespace CalorieTrack.Application
 {
@@ -13,6 +11,7 @@ namespace CalorieTrack.Application
     {
         public static IServiceCollection AddApplication( this IServiceCollection services)
         {
+            // All of theese will eventually be replaced by the MediatR
             services.AddScoped<IUnitDefinitionService, UnitDefinitionService>();
             services.AddScoped<INutritionService, NutritionService>();
             services.AddScoped<IFoodService, FoodService>();
@@ -21,6 +20,17 @@ namespace CalorieTrack.Application
             services.AddScoped<IRecepieItemService, RecepieItemService>();
             services.AddScoped<IRecepieService, RecepieService>();
             services.AddScoped<IDiaryService, DiaryService>();
+
+
+            services.AddMediatR(options =>
+            {
+                options.RegisterServicesFromAssemblyContaining(typeof(DependencyInjection));
+
+                options.AddOpenBehavior(typeof(ValidationBehavior<,>));
+                options.AddOpenBehavior(typeof(AuthorizationBehavior<,>));
+            });
+
+            services.AddValidatorsFromAssemblyContaining(typeof(DependencyInjection));
             return services;
         }
 
