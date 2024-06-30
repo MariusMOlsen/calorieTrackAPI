@@ -26,7 +26,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         {
             new(JwtRegisteredClaimNames.Name, user.FirstName),
             new(JwtRegisteredClaimNames.Email, user.Email),
-            new("id", user.Id),
+            new("id", user.GoogleUserId),
             new(ClaimTypes.Role, user.ProfileType.ToString()),
         };
 

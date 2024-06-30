@@ -1,6 +1,7 @@
 using CalorieTrack.Api;
 using CalorieTrack.Application;
 using CalorieTrack.Infrastructure;
+using GymManagement.Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 
@@ -42,6 +43,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 
 var app = builder.Build();
+app.UseExceptionHandler();
+app.AddInfrastructureMiddleware();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

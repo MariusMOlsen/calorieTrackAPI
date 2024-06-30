@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CalorieTrack.Application.FoodHandler.Queries;
 
-public record GetAllFoodsQuery
+public record GetAllUserFoodsQuery
 
-    (Guid userGuid) :  IRequest<ErrorOr<List<FoodDto>>>;
+    (Guid userGuid) :  IRequest<ErrorOr<List<UserFoodDto>>>;
 

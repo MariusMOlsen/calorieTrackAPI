@@ -5,37 +5,53 @@ using CalorieTrack.Services.interfaces;
 using Microsoft.AspNetCore.Connections.Features;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using CalorieTrack.Application.Common.Interfaces;
 using CalorieTrack.Application.DTO;
+using CalorieTrack.Application.FoodHandler.Commands;
+using CalorieTrack.Application.FoodHandler.Queries;
+using CalorieTrack.Domain.Model.Food;
+using Castle.Core.Internal;
+using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CalorieTrack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FoodController : ControllerBase
+    public class FoodController : ApiController
 
     {
-        private readonly IFoodService _foodService;
+        private readonly ICurrentUserProvider _currentUserProvider;
+        private readonly IUserFoodService _foodService;
+        private ISender _mediator;
 
-        public FoodController(IFoodService foodService) { _foodService = foodService; }
+
+        public FoodController(ISender mediator, IUserFoodService foodService, ICurrentUserProvider currentUserProvider)
+        {
+            _foodService = foodService; 
+            _currentUserProvider = currentUserProvider;
+            _mediator = mediator;
+        }
 
         [HttpPost]
-        public async Task<ActionResult<List<FoodDto>>> AddFood([FromBody] Food food)
+        public async Task<IActionResult> AddFood([FromBody] Food food, Nutrition nutrition,  UnitDefinition unitDefinition, int servingsPrContainer)
         {
 
-            try
+            var command = new CreateUserFoodCommand(_currentUserProvider.GetCurrentUser().Id, food, nutrition, unitDefinition, servingsPrContainer);
+            var createUserFoodResult = await _mediator.Send(command);
+            
+            if(createUserFoodResult.Errors.Any())
             {
-                var result = await _foodService.AddFood(food);
-                return Ok(result);
+                return Problem(createUserFoodResult.Errors);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            return Created();
+
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<FoodDto>>> EditFood([FromBody] Food food)
+        public async Task<ActionResult<List<UserFoodDto>>> EditFood([FromBody] Food food)
         {
             try
             {
@@ -53,7 +69,7 @@ namespace CalorieTrack.Controllers
         }
 
         [HttpDelete("{guid}")]
-        public async Task<ActionResult<List<FoodDto>>> DeleteFood(Guid guid)
+        public async Task<ActionResult<List<UserFoodDto>>> DeleteFood(Guid guid)
         {
             try
             {
@@ -72,21 +88,22 @@ namespace CalorieTrack.Controllers
 
         [HttpGet]
         [Authorize] 
-        public async Task<ActionResult<List<FoodDto>>> GetAllFoods()
+        public async Task<ActionResult<List<UserFoodDto>>> GetAllFoods()
         {
-            try
+            
+            _currentUserProvider.GetCurrentUser();
+            var query = new GetAllUserFoodsQuery(_currentUserProvider.GetCurrentUser().Id);
+            var result = await _mediator.Send(query);
+            if (result.Errors.Any())
             {
-                var result = await _foodService.GetAllFoods();
-                return Ok(result);
-
+                Problem(result.Errors);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            
+            return Ok(result);
         }
+        
         [HttpGet("{guid}")]
-        public async Task<ActionResult<List<FoodDto>>> GetSingleFood(Guid guid)
+        public async Task<ActionResult<List<UserFoodDto>>> GetSingleFood(Guid guid)
         {
             try
             {

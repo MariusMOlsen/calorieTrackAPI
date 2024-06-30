@@ -8,7 +8,7 @@ public abstract class Entity
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    public Guid Guid { get; init; }
+    public Guid Guid { get; private set; }
 
     protected readonly List<IDomainEvent> _domainEvents = [];
 

@@ -1,6 +1,7 @@
 ﻿using CalorieTrack.Application.Common.Interfaces;
 using CalorieTrack.Application.Services;
 using CalorieTrack.Domain.Model;
+using CalorieTrack.Domain.Model.Food;
 using CalorieTrack.DTO;
 using CalorieTrack.Services.interfaces;
 
@@ -11,15 +12,17 @@ namespace CalorieTrack.Services
     {
         private readonly IRecepieRepository _recepieRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IFoodRepository _foodRepository;
+        private readonly IUserFoodRepository _userFoodRepository;
+        private readonly ICommonFoodRepository _commonFoodRepository;
         private readonly IRecepieItemRepository _recepieItemRepository;
         private readonly INutritionRepository _nutritionRepository;
 
-        public RecepieService(IRecepieRepository recepieRepository,IUnitOfWork unitOfWork, IFoodRepository foodRepository, IRecepieItemRepository recepieItemRepository,
+        public RecepieService(IRecepieRepository recepieRepository,IUnitOfWork unitOfWork, IUserFoodRepository userFoodRepository, ICommonFoodRepository commonFoodRepository, IRecepieItemRepository recepieItemRepository,
             INutritionRepository nutritionRepository) { 
             _recepieRepository = recepieRepository; 
             _unitOfWork = unitOfWork; 
-            _foodRepository = foodRepository;
+            _userFoodRepository = userFoodRepository;
+            _commonFoodRepository = commonFoodRepository;
             _recepieItemRepository = recepieItemRepository;
             _nutritionRepository = nutritionRepository;
         }
@@ -45,7 +48,7 @@ namespace CalorieTrack.Services
 
             recepie.NutritionGuid = guid;
             List<Guid> RecepieItemFoodGuids = await RecepieItemService.GetFoodGuidsByRecepieGuid(guid, _recepieItemRepository);
-            List<Food> foodList = await FoodService.GetFoodListByGuidList(RecepieItemFoodGuids, _foodRepository);
+            IEnumerable<Food> foodList = await UserFoodService.GetFoodListByGuidList(RecepieItemFoodGuids, _userFoodRepository);
          
             List<Guid> nutritionGuidList = new List<Guid>();
 

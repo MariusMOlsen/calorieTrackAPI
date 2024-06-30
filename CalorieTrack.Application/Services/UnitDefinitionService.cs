@@ -17,7 +17,8 @@ namespace CalorieTrack.Services
 
         public async Task<List<UnitDefinitionDTO>> AddUnitDefition(string name, int defaultAmount)
         {
-            UnitDefinition unitDefinition = new UnitDefinition(name, defaultAmount);
+            Nutrition  dummyNutrition = new Nutrition(0, 0, 0, 0, Guid.NewGuid());
+            UnitDefinition unitDefinition = new UnitDefinition(name, defaultAmount,dummyNutrition);
             _unitDefinitionRepository.Add(unitDefinition);
             await _unitOfWork.CommitChangesAsync();
             List<UnitDefinition> unitDefinitionList  = await _unitDefinitionRepository.GetAll();

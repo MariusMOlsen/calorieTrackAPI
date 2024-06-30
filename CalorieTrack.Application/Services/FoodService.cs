@@ -3,84 +3,87 @@ using CalorieTrack.Application.DTO;
 using CalorieTrack.DTO;
 using CalorieTrack.Services.interfaces;
 using CalorieTrack.Domain.Model;
+using CalorieTrack.Domain.Model.Food;
 
 namespace CalorieTrack.Application.Services
 {
-    public class FoodService : IFoodService
+    public class UserFoodService : IUserFoodService
     {
-        private readonly IFoodRepository _foodRepository;
+        private readonly IUserFoodRepository _userFoodRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public FoodService(IFoodRepository context, IUnitOfWork unitOfWork)
+        public UserFoodService(IUserFoodRepository context, IUnitOfWork unitOfWork)
         {
-            _foodRepository = context;
+            _userFoodRepository = context;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<FoodDto>> AddFood(Domain.Model.Food food)
+        public async Task<List<UserFoodDto>> AddFood(Food food)
         {
-
-            Food newFood = new Food(food.Name, food.NutritionGuid, food.AmountOfUnit, food.Barcode);
-            _foodRepository.Add(newFood);
+            User dummyUser = new User();
+            Guid testGuid = dummyUser.Guid;
+            UserFood newFood = new UserFood(dummyUser, food.Name, food.NutritionGuid, food.AmountOfUnit, food.Barcode);
+            _userFoodRepository.Add(newFood);
             await _unitOfWork.CommitChangesAsync();
-            List<Domain.Model.Food> foodList = await _foodRepository.GetAll();
-            return FoodDto.convertFromEntityListToDTOList(foodList);
+            IEnumerable<Food> foodList = await _userFoodRepository.GetAll();
+            return UserFoodDto.convertFromEntityListToDTOList(foodList);
         }
 
-        public async Task<List<FoodDto>?> EditFood(Domain.Model.Food food)
+        public async Task<List<UserFoodDto>?> EditFood(Food food)
         {
-            Domain.Model.Food foundFood = await _foodRepository.Find(food.Guid);
+            Food foundFood = await _userFoodRepository.Find(food.Guid);
             if (foundFood == null)
             {
                 return null;
             }
 
             foundFood.Name = food.Name;
-            foundFood.NutritionGuid = food.NutritionGuid;
+           
             foundFood.AmountOfUnit = food.AmountOfUnit;
             foundFood.Barcode = food.Barcode;
             await _unitOfWork.CommitChangesAsync();
-            List<Domain.Model.Food> foodList = await _foodRepository.GetAll();
-            return FoodDto.convertFromEntityListToDTOList(foodList);
+            IEnumerable<Food> foodList = await _userFoodRepository.GetAll();
+            return UserFoodDto.convertFromEntityListToDTOList(foodList);
 
         }
 
-        public async Task<List<FoodDto>?> DeleteFood(Guid guid)
+        public async Task<List<UserFoodDto>?> DeleteFood(Guid guid)
         {
-            Domain.Model.Food foundFood = await _foodRepository.Find(guid);
+            UserFood foundFood = await _userFoodRepository.Find(guid);
             if (foundFood == null)
             {
                 return null;
             }
-            _foodRepository.Delete(foundFood);
+            _userFoodRepository.Delete(foundFood);
             await _unitOfWork.CommitChangesAsync();
-            List<Domain.Model.Food> foodList = await _foodRepository.GetAll();
-            return FoodDto.convertFromEntityListToDTOList(foodList);
+            IEnumerable<Food> foodList = await _userFoodRepository.GetAll();
+            return UserFoodDto.convertFromEntityListToDTOList(foodList);
         }
 
-        public async Task<List<FoodDto>> GetAllFoods()
+        public async Task<List<UserFoodDto>> GetAllFoods()
         {
-            List<Domain.Model.Food> foodList = await _foodRepository.GetAll();
-            return FoodDto.convertFromEntityListToDTOList(foodList);
+            IEnumerable<Food> foodList = await _userFoodRepository.GetAll();
+            return UserFoodDto.convertFromEntityListToDTOList(foodList);
         }
 
-        public async Task<FoodDto?> GetSingleFood(Guid guid)
+        public async Task<UserFoodDto?> GetSingleFood(Guid guid)
         {
-            Domain.Model.Food foundFood = await _foodRepository.Find(guid);
+            Food foundFood = await _userFoodRepository.Find(guid);
             if (foundFood == null)
             {
                 return null;
 
             }
-            return FoodDto.convertFromEntityToDTO(foundFood);
+            return UserFoodDto.convertFromEntityToDTO(foundFood);
         }
 
-        public static async Task<List<Domain.Model.Food>> GetFoodListByGuidList(List<Guid> guidList, IFoodRepository dataContext)
+        public static async Task<IEnumerable<Food>> GetFoodListByGuidList(List<Guid> guidList, IUserFoodRepository dataContext)
         {
-            List<Domain.Model.Food>? foodList = await dataContext.GetFoodListByGuidList(guidList);  
+           IEnumerable<Food>? foodList = await dataContext.GetFoodListByGuidList(guidList);  
+            
             if(foodList == null)
             {
-                foodList = new List<Domain.Model.Food>();
+                foodList = new List<Food>();
             }
             return foodList;
         }

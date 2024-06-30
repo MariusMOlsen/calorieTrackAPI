@@ -16,7 +16,7 @@ public class CurrentUserProvider(IHttpContextAccessor _httpContextAccessor) : IC
             .Select(Guid.Parse)
             .First();
 
-        var permissions = GetClaimValues("permissions");
+      //  var permissions = GetClaimValues("permissions");
         int profileTypeInt =  GetClaimValues("role")
             .Select(int.Parse)
             .First();

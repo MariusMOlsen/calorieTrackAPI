@@ -28,10 +28,16 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public async Task<User?> GetByIdAsync(string userId)
+    public async Task<User?> GetByGoogleUserIdAsync(string userId)
     {
-      return await _context.Users.Where(user => user.Id == userId).FirstOrDefaultAsync();
+      return await _context.Users.Where(user => user.GoogleUserId == userId).FirstOrDefaultAsync();
     }
+    
+    public async Task<User?> GetByIdAsync(Guid id)
+    {
+        return await _context.Users.FindAsync(id);
+    }
+    
 
     public Task UpdateAsync(User user)
     {

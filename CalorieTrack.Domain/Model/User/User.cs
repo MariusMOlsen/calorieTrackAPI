@@ -10,16 +10,13 @@ namespace CalorieTrack.Domain.Model;
 public class User
     : Entity
 {
-    // [Key]
-    // [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    // public Guid Id { get; init; }
-    public string Id { get; set; } 
-    public string? FirstName { get; } = null!;
-    public string? LastName { get; } = null!;
+    public string GoogleUserId { get; set; } 
+    public string? FirstName { get; }
+    public string? LastName { get; } 
     public string Email { get; } = null!;
     public ProfileType ProfileType { get; private set; }
     
-    private readonly string _passwordHash = null!;
+    private readonly string? _passwordHash = null;
     
     public User(
         string? firstName,
@@ -27,14 +24,13 @@ public class User
         string email,
         string id
         )
-        //: base(id ?? Guid.NewGuid())
+        : base(Guid.NewGuid())
     {
         FirstName = firstName;
         LastName = lastName;
         Email = email;
         ProfileType = ProfileType.FreeMember;
-         Id = id;
-        Guid = Guid.NewGuid();
+        GoogleUserId = id;
     }
     
     public bool IsCorrectPasswordHash(string password, IPasswordHasher passwordHasher)
@@ -44,6 +40,6 @@ public class User
     
  
 
-    private User() { }
+    public User() { }
     
 }

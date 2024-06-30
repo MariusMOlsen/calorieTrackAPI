@@ -6,13 +6,13 @@ namespace CalorieTrack.Model
 
 
         public Guid Guid { get; set; }
-        public int Protein { get; set; }
-        public int Carbohydrates { get; set; }
-        public int Fat { get; set; }
-        public int Calories { get; set; }
+        public double Protein { get; set; }
+        public double Carbohydrates { get; set; }
+        public double Fat { get; set; }
+        public double Calories { get; set; }
 
-        public Guid? UnitDefinitionGuid { get; set; }
-        public NutritionDTO(Guid guid, int protein, int carbohydrates, int fat, int calories)
+        public Guid UnitDefinitionGuid { get; set; }
+        public NutritionDTO(Guid guid, double protein, double carbohydrates, double fat, double calories)
         {
             this.Guid = guid;
             this.Protein = protein;
@@ -22,7 +22,7 @@ namespace CalorieTrack.Model
             this.Calories = calories;
         }
 
-        public NutritionDTO(Guid guid, int protein, int carbohydrates, int fat, int calories, Guid unitDefinitionGuid)
+        public NutritionDTO(Guid guid, double protein, double carbohydrates, double fat, double calories, Guid unitDefinitionGuid)
         {
             this.Guid = guid;
             this.Protein = protein;
@@ -39,12 +39,12 @@ namespace CalorieTrack.Model
             {
                 if (nutrition.UnitDefinitionGuid != Guid.Empty)
                 {
-                    nutritionDTOList.Add(new NutritionDTO(nutrition.Guid, nutrition.Protein, nutrition.Carbohydrates, nutrition.Fat, nutrition.Calories, nutrition.UnitDefinitionGuid));
+                    nutritionDTOList.Add(new NutritionDTO(nutrition.Guid, nutrition.GetProtein(), nutrition.GetCarbohydrates(), nutrition.GetFat(), nutrition.GetCalories(), nutrition.UnitDefinitionGuid));
 
                 }
                 else
                 {
-                    nutritionDTOList.Add(new NutritionDTO(nutrition.Guid, nutrition.Protein, nutrition.Carbohydrates, nutrition.Fat, nutrition.Calories));
+                    nutritionDTOList.Add(new NutritionDTO(nutrition.Guid, nutrition.GetProtein(), nutrition.GetCarbohydrates(), nutrition.GetFat(), nutrition.GetCalories()));
                 }
 
             }

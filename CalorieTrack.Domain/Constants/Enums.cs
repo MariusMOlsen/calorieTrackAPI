@@ -5,8 +5,10 @@
 
         public enum InstanceDefinition
         {
-            Food = 1,
-            Recepie = 2
+            UserFood = 1,
+            Recepie = 2,
+            Meal = 3,
+            CommonFood = 4
         }
     }
 }

@@ -30,6 +30,11 @@ public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command,
     {
         return AuthenticationErrors.InvalidCredentials;
     }
+   User? existingUser = await _userRepository.GetByGoogleUserIdAsync(userInfo.Value.Id);
+   if (existingUser is not null)
+   {
+       return new AuthenticationResult(existingUser, jwtTokenGenerator.GenerateToken(existingUser));
+   }
       
     User newUser = new User(userInfo.Value.FirstName, userInfo.Value.LastName,  userInfo.Value.Email,userInfo.Value.Id);
     string  jwtToken= _jwtTokenGenerator.GenerateToken(newUser);

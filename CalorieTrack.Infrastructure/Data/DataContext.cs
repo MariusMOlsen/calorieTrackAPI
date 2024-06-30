@@ -1,6 +1,7 @@
 ﻿
 using CalorieTrack.Application.Common.Interfaces;
 using CalorieTrack.Domain.Model;
+using CalorieTrack.Domain.Model.Food;
 using CalorieTrack.Model;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,7 +40,8 @@ namespace CalorieTrack.Data
 
 
         public DbSet<Nutrition> Nutritions { get; set; }
-        public DbSet<Food> Foods { get; set; }
+        public DbSet<UserFood> UserFoods { get; set; }
+        public DbSet<CommonFood> CommonFoods { get; set; }
         public DbSet<UnitDefinition> UnitDefinition { get; set; }
 
         public DbSet<Diary> Diaries { get; set; }

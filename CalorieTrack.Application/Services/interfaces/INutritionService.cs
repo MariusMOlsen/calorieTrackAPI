@@ -13,7 +13,7 @@ namespace CalorieTrack.Services.interfaces
         Task<List<NutritionDTO>?> DeleteNutrition(Guid guid);
 
 
-        Task<List<NutritionDTO>> AddNutrition(int protein, int carbohydrates, int fat, int calories, Guid unitDefinitonGuid);
+        Task<List<NutritionDTO>> AddNutrition(double protein, double carbohydrates, double fat, double calories, Guid unitDefinitonGuid);
 
 
         Task<List<NutritionDTO>> GetAllNutrition();

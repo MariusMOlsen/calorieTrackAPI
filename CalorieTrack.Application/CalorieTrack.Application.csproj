@@ -18,4 +18,8 @@
     <ProjectReference Include="..\CalorieTrack.Domain\CalorieTrack.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CommonFoodsService\" />
+  </ItemGroup>
+
 </Project>

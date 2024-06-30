@@ -24,7 +24,7 @@ namespace CalorieTrack.Services
             return NutritionDTO.convertFromEntityListToDTOList(nutritonList);
         }
 
-        public async Task<List<NutritionDTO>> AddNutrition(int protein, int carbohydrates, int fat, int calories, Guid unitDefinitonGuid)
+        public async Task<List<NutritionDTO>> AddNutrition(double protein, double carbohydrates, double fat, double calories, Guid unitDefinitonGuid)
         {
             Nutrition newNutrition = new Nutrition(protein, carbohydrates, fat, calories, unitDefinitonGuid);
             _nutritionRepository.Add(newNutrition);
@@ -55,10 +55,10 @@ namespace CalorieTrack.Services
                 return null;
             }
             nutritionObject.UnitDefinitionGuid = nutritionRequest.UnitDefinitionGuid;
-            nutritionObject.Carbohydrates = nutritionRequest.Carbohydrates;
-            nutritionObject.Fat = nutritionRequest.Fat;
-            nutritionObject.Calories = nutritionRequest.Calories;
-            nutritionObject.Protein = nutritionRequest.Protein;
+            nutritionObject.Carbohydrates = nutritionRequest.GetCarbohydrates();
+            nutritionObject.Fat = nutritionRequest.GetFat();
+            nutritionObject.Calories = nutritionRequest.GetCalories();
+            nutritionObject.Protein = nutritionRequest.GetProtein();
             await _unitOfWork.CommitChangesAsync();
             List<Nutrition> nutritonList = await _nutritionRepository.GetAll();
             return NutritionDTO.convertFromEntityListToDTOList(nutritonList);
@@ -89,10 +89,10 @@ namespace CalorieTrack.Services
 
         public  static async Task<Nutrition> convertNutritionListToSingleObject(List<Nutrition> nutritionList, INutritionRepository nutritionRepository, IUnitOfWork unitOfWork)
         {
-            int protein = 0;
-            int carbohydrates = 0;
-            int fat = 0;
-            int calories = 0;
+            double protein = 0;
+            double carbohydrates = 0;
+            double fat = 0;
+            double calories = 0;
             foreach (Nutrition nutrition in nutritionList)
             {
                 protein = +nutrition.Protein;

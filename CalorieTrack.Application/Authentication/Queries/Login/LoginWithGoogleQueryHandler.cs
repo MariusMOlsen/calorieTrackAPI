@@ -6,7 +6,7 @@ using MediatR;
 using ErrorOr;
 namespace CalorieTrack.Application.Authentication.Queries.Login;
 
-public class LoginQueryHandler(
+public class LoginWithGoogleQueryHandler(
     IGoogleAuthentication googleAuthentication,
     IJwtTokenGenerator jwtTokenGenerator,
     IUserRepository userRepository)
@@ -33,7 +33,7 @@ public class LoginQueryHandler(
         
       
         
-      var user = await _userRepository.GetByIdAsync(userId.Value);
+      var user = await _userRepository.GetByGoogleUserIdAsync(userId.Value);
       if (user is null)
       {
           return AuthenticationErrors.UserNotExist;

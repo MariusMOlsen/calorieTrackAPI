@@ -7,9 +7,6 @@ namespace CalorieTrack.Domain.Model
 {
     public class Diary:  Entity, INutritionObject
     {
-        // [Key]
-        // [DatabaseGenerated(DatabaseGeneratedOption.None)]  
-        // public Guid Guid { get; set; }
         public DateTime Date { get; set; }
         public double Weight { get; set; }
         public Guid NutritionGuid { get; set; }
@@ -17,18 +14,17 @@ namespace CalorieTrack.Domain.Model
         public Guid userGuid { get; set; }
         public int Sections { get; set; }
         public Diary() { }
-        public Diary( Guid userGuid)
+        public Diary( Guid userGuid): base(Guid.NewGuid())
         {
-            this.Guid = Guid.NewGuid();
+            
             this.Date = new DateTime();
             this.Weight = 0;
             this.userGuid = userGuid;
             this.Sections = 4;
             
         }
-        public Diary(Guid userGuid, DateTime date)
+        public Diary(Guid userGuid, DateTime date) :base(Guid.NewGuid())
         {
-            this.Guid = Guid.NewGuid();
             this.Date = date;
             this.Weight = 0;
             this.userGuid = userGuid;
