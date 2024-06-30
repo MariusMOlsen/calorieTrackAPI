@@ -5,6 +5,7 @@ using CalorieTrack.Services.interfaces;
 using Microsoft.AspNetCore.Connections.Features;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using CalorieTrack.Application.DTO;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CalorieTrack.Controllers
@@ -19,7 +20,7 @@ namespace CalorieTrack.Controllers
         public FoodController(IFoodService foodService) { _foodService = foodService; }
 
         [HttpPost]
-        public async Task<ActionResult<List<FoodDTO>>> AddFood([FromBody] Food food)
+        public async Task<ActionResult<List<FoodDto>>> AddFood([FromBody] Food food)
         {
 
             try
@@ -34,7 +35,7 @@ namespace CalorieTrack.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<FoodDTO>>> EditFood([FromBody] Food food)
+        public async Task<ActionResult<List<FoodDto>>> EditFood([FromBody] Food food)
         {
             try
             {
@@ -52,7 +53,7 @@ namespace CalorieTrack.Controllers
         }
 
         [HttpDelete("{guid}")]
-        public async Task<ActionResult<List<FoodDTO>>> DeleteFood(Guid guid)
+        public async Task<ActionResult<List<FoodDto>>> DeleteFood(Guid guid)
         {
             try
             {
@@ -71,7 +72,7 @@ namespace CalorieTrack.Controllers
 
         [HttpGet]
         [Authorize] 
-        public async Task<ActionResult<List<FoodDTO>>> GetAllFoods()
+        public async Task<ActionResult<List<FoodDto>>> GetAllFoods()
         {
             try
             {
@@ -85,7 +86,7 @@ namespace CalorieTrack.Controllers
             }
         }
         [HttpGet("{guid}")]
-        public async Task<ActionResult<List<FoodDTO>>> GetSingleFood(Guid guid)
+        public async Task<ActionResult<List<FoodDto>>> GetSingleFood(Guid guid)
         {
             try
             {

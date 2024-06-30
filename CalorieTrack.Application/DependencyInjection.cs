@@ -3,6 +3,7 @@ using CalorieTrack.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 using CalorieTrack.Application.Common.Behaviours;
+using CalorieTrack.Application.Services;
 using FluentValidation;
 
 namespace CalorieTrack.Application

@@ -1,10 +1,10 @@
 ﻿using CalorieTrack.Application.Common.Interfaces;
-using CalorieTrack.Domain.Model;
+using CalorieTrack.Application.DTO;
 using CalorieTrack.DTO;
-using CalorieTrack.Model;
 using CalorieTrack.Services.interfaces;
+using CalorieTrack.Domain.Model;
 
-namespace CalorieTrack.Services
+namespace CalorieTrack.Application.Services
 {
     public class FoodService : IFoodService
     {
@@ -17,19 +17,19 @@ namespace CalorieTrack.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<FoodDTO>> AddFood(Food food)
+        public async Task<List<FoodDto>> AddFood(Domain.Model.Food food)
         {
 
             Food newFood = new Food(food.Name, food.NutritionGuid, food.AmountOfUnit, food.Barcode);
             _foodRepository.Add(newFood);
             await _unitOfWork.CommitChangesAsync();
-            List<Food> foodList = await _foodRepository.GetAll();
-            return FoodDTO.convertFromEntityListToDTOList(foodList);
+            List<Domain.Model.Food> foodList = await _foodRepository.GetAll();
+            return FoodDto.convertFromEntityListToDTOList(foodList);
         }
 
-        public async Task<List<FoodDTO>?> EditFood(Food food)
+        public async Task<List<FoodDto>?> EditFood(Domain.Model.Food food)
         {
-            Food foundFood = await _foodRepository.Find(food.Guid);
+            Domain.Model.Food foundFood = await _foodRepository.Find(food.Guid);
             if (foundFood == null)
             {
                 return null;
@@ -40,47 +40,47 @@ namespace CalorieTrack.Services
             foundFood.AmountOfUnit = food.AmountOfUnit;
             foundFood.Barcode = food.Barcode;
             await _unitOfWork.CommitChangesAsync();
-            List<Food> foodList = await _foodRepository.GetAll();
-            return FoodDTO.convertFromEntityListToDTOList(foodList);
+            List<Domain.Model.Food> foodList = await _foodRepository.GetAll();
+            return FoodDto.convertFromEntityListToDTOList(foodList);
 
         }
 
-        public async Task<List<FoodDTO>?> DeleteFood(Guid guid)
+        public async Task<List<FoodDto>?> DeleteFood(Guid guid)
         {
-            Food foundFood = await _foodRepository.Find(guid);
+            Domain.Model.Food foundFood = await _foodRepository.Find(guid);
             if (foundFood == null)
             {
                 return null;
             }
             _foodRepository.Delete(foundFood);
             await _unitOfWork.CommitChangesAsync();
-            List<Food> foodList = await _foodRepository.GetAll();
-            return FoodDTO.convertFromEntityListToDTOList(foodList);
+            List<Domain.Model.Food> foodList = await _foodRepository.GetAll();
+            return FoodDto.convertFromEntityListToDTOList(foodList);
         }
 
-        public async Task<List<FoodDTO>> GetAllFoods()
+        public async Task<List<FoodDto>> GetAllFoods()
         {
-            List<Food> foodList = await _foodRepository.GetAll();
-            return FoodDTO.convertFromEntityListToDTOList(foodList);
+            List<Domain.Model.Food> foodList = await _foodRepository.GetAll();
+            return FoodDto.convertFromEntityListToDTOList(foodList);
         }
 
-        public async Task<FoodDTO?> GetSingleFood(Guid guid)
+        public async Task<FoodDto?> GetSingleFood(Guid guid)
         {
-            Food foundFood = await _foodRepository.Find(guid);
+            Domain.Model.Food foundFood = await _foodRepository.Find(guid);
             if (foundFood == null)
             {
                 return null;
 
             }
-            return FoodDTO.convertFromEntityToDTO(foundFood);
+            return FoodDto.convertFromEntityToDTO(foundFood);
         }
 
-        public static async Task<List<Food>> GetFoodListByGuidList(List<Guid> guidList, IFoodRepository dataContext)
+        public static async Task<List<Domain.Model.Food>> GetFoodListByGuidList(List<Guid> guidList, IFoodRepository dataContext)
         {
-            List<Food>? foodList = await dataContext.GetFoodListByGuidList(guidList);  
+            List<Domain.Model.Food>? foodList = await dataContext.GetFoodListByGuidList(guidList);  
             if(foodList == null)
             {
-                foodList = new List<Food>();
+                foodList = new List<Domain.Model.Food>();
             }
             return foodList;
         }

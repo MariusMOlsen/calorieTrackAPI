@@ -1,11 +1,10 @@
 ﻿using CalorieTrack.Constants;
 using CalorieTrack.Domain.Model;
-using CalorieTrack.Model;
 using static CalorieTrack.Constants.Enums;
 
-namespace CalorieTrack.DTO
+namespace CalorieTrack.Application.DTO
 {
-    public class FoodDTO
+    public class FoodDto
     {
         public Guid Guid { get; set; }
         public string Name { get; set; }
@@ -16,7 +15,7 @@ namespace CalorieTrack.DTO
         public string Barcode { get; set; }
         public InstanceDefinition InstanceDefinition { get; set; }
 
-        public FoodDTO(Guid guid, string name, Guid nutritionGuid, int amountOfUnit, string barcode)
+        public FoodDto(Guid guid, string name, Guid nutritionGuid, int amountOfUnit, string barcode)
         {
             this.Guid = guid;
             this.Name = name;
@@ -28,20 +27,20 @@ namespace CalorieTrack.DTO
 
 
 
-        public static List<FoodDTO> convertFromEntityListToDTOList(List<Food> foodList)
+        public static List<FoodDto> convertFromEntityListToDTOList(List<Food> foodList)
         {
-            List<FoodDTO> DTOList = new List<FoodDTO>();
+            List<FoodDto> DTOList = new List<FoodDto>();
             foreach (Food food in foodList)
             {
-                DTOList.Add(new FoodDTO(food.Guid, food.Name, food.NutritionGuid, food.AmountOfUnit, food.Barcode));
+                DTOList.Add(new FoodDto(food.Guid, food.Name, food.NutritionGuid, food.AmountOfUnit, food.Barcode));
             }
 
             return DTOList;
         }
 
-        public static FoodDTO convertFromEntityToDTO(Food food)
+        public static FoodDto convertFromEntityToDTO(Food food)
         {
-            return new FoodDTO(food.Guid, food.Name, food.NutritionGuid, food.AmountOfUnit, food.Barcode);
+            return new FoodDto(food.Guid, food.Name, food.NutritionGuid, food.AmountOfUnit, food.Barcode);
         }
     }
 
