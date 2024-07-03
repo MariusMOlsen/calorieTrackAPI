@@ -31,7 +31,26 @@ namespace CalorieTrack.Data
         //             v => v.Value, 
         //             v => ProfileType.FromValue(v));
         // }
-      
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UnitDefinition>(entity =>
+            {
+                entity
+                    .HasOne(ud => ud.Nutrition)
+                    .WithOne(n => n.UnitDefinition)
+                    .HasForeignKey<Nutrition>(n => n.UnitDefinitionGuid);
+            });
+
+            modelBuilder.Entity<Nutrition>(entity =>
+            {
+                entity
+                    .HasOne(n => n.UnitDefinition)
+                    .WithOne(ud => ud.Nutrition)
+                    .HasForeignKey<UnitDefinition>(ud => ud.NutritionGuid);
+            });
+
+            // Configure other entities...
+        }
 
         public async Task CommitChangesAsync()
         {

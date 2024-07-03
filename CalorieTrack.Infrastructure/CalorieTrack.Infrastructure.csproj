@@ -26,4 +26,8 @@
     <ProjectReference Include="..\CalorieTrack.Domain\CalorieTrack.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Persistence\" />
+  </ItemGroup>
+
 </Project>

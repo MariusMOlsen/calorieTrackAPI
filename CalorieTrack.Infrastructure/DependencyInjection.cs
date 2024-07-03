@@ -22,7 +22,9 @@ namespace CalorieTrack.Infrastructure
        public static IServiceCollection AddInfrastructure(this IServiceCollection services,  IConfiguration configuration)
        {
             services.AddAuthentication(configuration);
+           // services.ValidateJwt(configuration);
             services.AddDbContext<DataContext>();
+          
             services.AddScoped<IJwtTokenGenerator,JwtTokenGenerator>();
             services.AddScoped<IGoogleAuthentication, GoogleAuthentication>();
             services.AddScoped<IUserRepository, UserRepository>();
@@ -45,19 +47,19 @@ namespace CalorieTrack.Infrastructure
         }
        
        
-       public static IServiceCollection AddAuthentication( this IServiceCollection services,IConfiguration configuration)
-       {
-           services.AddAuthentication(options =>
-           {
-               options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-               options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-           });
-           services.ValidateJwt(configuration);
-           
-           return services;
-       }
+       // public static IServiceCollection AddAuthentication( this IServiceCollection services,IConfiguration configuration)
+       // {
+       //     // services.AddAuthentication(options =>
+       //     // {
+       //     //     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+       //     //     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+       //     // });
+       //  
+       //     
+       //     return services;
+       // }
        
-       public static IServiceCollection ValidateJwt(this IServiceCollection services, IConfiguration configuration)
+       public static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
        {
            var jwtSettings = new JwtSettings();
            configuration.Bind(JwtSettings.Section, jwtSettings);
@@ -73,11 +75,12 @@ namespace CalorieTrack.Infrastructure
                    // ValidateAudience = true,
                    // ValidateLifetime = true,
                    ValidateIssuerSigningKey = true,
-                   ValidIssuer = jwtSettings.Issuer,
-                   ValidAudience = jwtSettings.Audience,
+                   // ValidIssuer = jwtSettings.Issuer,
+                   // ValidAudience = jwtSettings.Audience,
                    IssuerSigningKey = new SymmetricSecurityKey(
                        Encoding.UTF8.GetBytes(jwtSettings.Secret)),
                });
+           services.AddHttpContextAccessor();
 
 
            return services;

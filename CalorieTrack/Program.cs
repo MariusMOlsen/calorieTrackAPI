@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using CalorieTrack.Api;
 using CalorieTrack.Application;
 using CalorieTrack.Infrastructure;
@@ -32,7 +33,7 @@ builder.Services.AddCors(options =>
             policyBuilder.AllowAnyOrigin(); // Allow all origins
             policyBuilder.AllowAnyHeader();
             policyBuilder.AllowAnyMethod();
-           // policyBuilder.AllowCredentials();
+         //  policyBuilder.AllowCredentials();
         });
 });
 
@@ -43,8 +44,24 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 
 var app = builder.Build();
+
+
+
+app.Use(async (context, next) =>
+{
+    await next.Invoke();
+
+    // Log the claims after the authentication middleware has run
+    var claims = context.User.Claims.Select(c => new { c.Type, c.Value }).ToList();
+    Debug.WriteLine("claims comes below " );
+    foreach (var claim in claims)
+    {
+        Debug.WriteLine("claim: " + claim);
+    }
+  
+});
 app.UseExceptionHandler();
-app.AddInfrastructureMiddleware();
+//app.AddInfrastructureMiddleware();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -54,6 +71,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

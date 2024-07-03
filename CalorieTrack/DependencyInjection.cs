@@ -13,7 +13,7 @@ public static class DependencyInjection
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
         services.AddProblemDetails();
-        services.AddHttpContextAccessor();
+  
 
         services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
 

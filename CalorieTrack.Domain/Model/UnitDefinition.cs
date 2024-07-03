@@ -14,8 +14,10 @@ namespace CalorieTrack.Domain.Model
         public string Name { get; set; }
         public int defaultAmount { get; set; }
         public Guid NutritionGuid { get; private set; }
-        public Nutrition Nutrition { get; private set; }
-
+        public Nutrition? Nutrition { get; private set; }
+        public UnitDefinition()
+        {
+        }
        public UnitDefinition(string Name, int defaultAmount, Nutrition nutrition) {
             this.Name = Name;
             this.defaultAmount = defaultAmount;
@@ -24,6 +26,8 @@ namespace CalorieTrack.Domain.Model
             this.Nutrition = nutrition;
             
         }
+       
+        
 
     }
 }

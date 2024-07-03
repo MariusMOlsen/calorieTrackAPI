@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -21,13 +22,17 @@ public class JwtTokenGenerator : IJwtTokenGenerator
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
+        Debug.WriteLine("start; ");
+Debug.WriteLine(user.FirstName);
+Debug.WriteLine(user.Email);
+Debug.WriteLine(user.GoogleUserId);
+Debug.WriteLine(user.ProfileType.ToString());
         var claims = new List<Claim>
         {
-            new(JwtRegisteredClaimNames.Name, user.FirstName),
-            new(JwtRegisteredClaimNames.Email, user.Email),
-            new("id", user.GoogleUserId),
-            new(ClaimTypes.Role, user.ProfileType.ToString()),
+            new(JwtRegisteredClaimNames.Name, user.FirstName ?? ""),
+            new(JwtRegisteredClaimNames.Email, user.Email  ?? ""),
+            new("id", user.Guid.ToString()),
+            new("role", user.ProfileType.ToString()),
         };
 
  

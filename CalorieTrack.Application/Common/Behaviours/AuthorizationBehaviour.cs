@@ -25,7 +25,8 @@ namespace CalorieTrack.Application.Common.Behaviours
             {
                 return await next();
             }
-
+            else
+            {
             var currentUser = _currentUserProvider.GetCurrentUser();
 
 
@@ -42,6 +43,9 @@ namespace CalorieTrack.Application.Common.Behaviours
             
 
             return await next();
+                
+            }
+
         }
     }
 }

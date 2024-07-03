@@ -11,6 +11,7 @@ namespace CalorieTrack.Controllers;
 [AllowAnonymous]
 public class AuthenticationController( ISender _mediator): ApiController
 {
+    [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] string credential)
     {
@@ -24,26 +25,26 @@ public class AuthenticationController( ISender _mediator): ApiController
             Problem);
     }
     
-    // [HttpPost("login")]
-    // public async Task<IActionResult> Login(LoginRequest request)
-    // {
-    //     var query = new LoginQuery(request.Email, request.Password);
-    //
-    //     var authResult = await _mediator.Send(query);
-    //
-    //     if (authResult.IsError && authResult.FirstError == AuthenticationErrors.InvalidCredentials)
-    //     {
-    //         return Problem(
-    //             detail: authResult.FirstError.Description,
-    //             statusCode: StatusCodes.Status401Unauthorized);
-    //     }
-    //
-    //     return authResult.Match(
-    //         authResult => Ok(MapToAuthResponse(authResult)),
-    //         Problem);
-    // }
-    //
-    //
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(LoginRequest request)
+    {
+        var query = new LoginQuery(request.Email, request.Password);
+    
+        var authResult = await _mediator.Send(query);
+    
+        if (authResult.IsError && authResult.FirstError == AuthenticationErrors.InvalidCredentials)
+        {
+            return Problem(
+                detail: authResult.FirstError.Description,
+                statusCode: StatusCodes.Status401Unauthorized);
+        }
+    
+        return authResult.Match(
+            authResult => Ok(MapToAuthResponse(authResult)),
+            Problem);
+    }
+    
+    
     
     
     [HttpPost("loginwithgoogle")]

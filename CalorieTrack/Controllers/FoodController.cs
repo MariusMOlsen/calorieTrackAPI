@@ -5,6 +5,7 @@ using CalorieTrack.Services.interfaces;
 using Microsoft.AspNetCore.Connections.Features;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Diagnostics;
 using CalorieTrack.Application.Common.Interfaces;
 using CalorieTrack.Application.DTO;
 using CalorieTrack.Application.FoodHandler.Commands;
@@ -24,30 +25,34 @@ namespace CalorieTrack.Controllers
     {
         private readonly ICurrentUserProvider _currentUserProvider;
         private readonly IUserFoodService _foodService;
-        private ISender _mediator;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private  readonly ISender _mediator;
 
 
-        public FoodController(ISender mediator, IUserFoodService foodService, ICurrentUserProvider currentUserProvider)
+        public FoodController(ISender mediator, IUserFoodService foodService, IHttpContextAccessor httpContextAccessor,  ICurrentUserProvider currentUserProvider)
         {
             _foodService = foodService; 
             _currentUserProvider = currentUserProvider;
+            _httpContextAccessor = httpContextAccessor;
             _mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddFood([FromBody] Food food, Nutrition nutrition,  UnitDefinition unitDefinition, int servingsPrContainer)
+        public async Task<IActionResult> AddFood([FromBody] CreateUserFoodCommand request)
         {
-
-            var command = new CreateUserFoodCommand(_currentUserProvider.GetCurrentUser().Id, food, nutrition, unitDefinition, servingsPrContainer);
+            
+            Debug.WriteLine(request.Food.Name);
+            var command = new CreateUserFoodCommand(_currentUserProvider.GetCurrentUser().Id, request.Food, request.Nutrition, request.UnitDefinition, request.servingsPrContainer);
+            // var command = new CreateUserFoodCommand(_currentUserProvider.GetCurrentUser().Id, food, nutrition, unitDefinition, servingsPrContainer);
             var createUserFoodResult = await _mediator.Send(command);
             
             if(createUserFoodResult.Errors.Any())
             {
                 return Problem(createUserFoodResult.Errors);
             }
-
+        
             return Created();
-
+        
         }
 
         [HttpPut]
@@ -87,14 +92,14 @@ namespace CalorieTrack.Controllers
         }
 
         [HttpGet]
-        [Authorize] 
+    
         public async Task<ActionResult<List<UserFoodDto>>> GetAllFoods()
         {
-            
+            var test = _httpContextAccessor.HttpContext;
             _currentUserProvider.GetCurrentUser();
             var query = new GetAllUserFoodsQuery(_currentUserProvider.GetCurrentUser().Id);
             var result = await _mediator.Send(query);
-            if (result.Errors.Any())
+            if (result.IsError)
             {
                 Problem(result.Errors);
             }
