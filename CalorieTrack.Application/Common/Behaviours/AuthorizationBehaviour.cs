@@ -35,7 +35,7 @@ namespace CalorieTrack.Application.Common.Behaviours
             List<ProfileType> requiredRoles = authorizationAttributes
                 .Select(r => r.Roles).ToList();
             
-            if(!requiredRoles.Any((requestedRole) => requestedRole == currentUser.Role))
+            if(!requiredRoles.Any((requestedRole) => requestedRole == currentUser.Value.Role))
             {
                 return (dynamic)Error.Unauthorized(description: "User is forbidden from taking this action");
             }

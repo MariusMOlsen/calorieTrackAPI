@@ -20,12 +20,12 @@ namespace CalorieTrack.Infrastructure.UserFoodRepo
             _context.Add(food); 
         }
 
-        public async Task<Domain.Model.Food.UserFood?> Find(Guid id)
+        public async Task<UserFood?> Find(Guid id)
         {
             return await _context.UserFoods.FindAsync(id);
         }
 
-        public async Task<List<UserFood>> GetAll()
+        public async Task<List<UserFood?>> GetAll()
         {
             return await _context.UserFoods.ToListAsync();
         }

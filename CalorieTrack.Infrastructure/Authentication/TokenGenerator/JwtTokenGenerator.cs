@@ -34,7 +34,7 @@ Debug.WriteLine(user.ProfileType.ToString());
             new("id", user.Guid.ToString()),
             new("role", user.ProfileType.ToString()),
         };
-
+Debug.Write(claims);
  
         var token = new JwtSecurityToken(
             _jwtSettings.Issuer,

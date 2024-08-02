@@ -20,9 +20,11 @@ public class AuthenticationController( ISender _mediator): ApiController
 
         var authResult = await _mediator.Send(command);
 
-        return authResult.Match(
+        var test = authResult.Match(
             authResult => base.Ok(MapToAuthResponse(authResult)),
             Problem);
+
+        return test;
     }
     
     [HttpPost("login")]

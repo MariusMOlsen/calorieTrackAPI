@@ -12,7 +12,7 @@ public class CurrentUserProvider(IHttpContextAccessor _httpContextAccessor) : IC
 {
     
    // IHttpContextAccessor  _httpContextAccessor = httpContextAccessor;
-    public CurrentUser GetCurrentUser()
+    public ErrorOr<CurrentUser> GetCurrentUser()
     {
         _httpContextAccessor.HttpContext.ThrowIfNull();
 
@@ -26,16 +26,22 @@ public class CurrentUserProvider(IHttpContextAccessor _httpContextAccessor) : IC
         }
 
       //  var permissions = GetClaimValues("permissions");
-        string profileTypeInt =  GetClaimValues("role")
+        string profileTypeInt =  GetClaimValues("http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
             
             .First();
-        Debug.WriteLine("profileTypeInt: " + profileTypeInt);
-        if (profileTypeInt == null)
+        ProfileType? profileType;
+        bool success = Enum.TryParse(profileTypeInt, out ProfileType parsedProfileType);
+        if (success)
         {
-            throw new  Exception("Role not found");
+            profileType = parsedProfileType;
         }
-
-        return new CurrentUser(Id: (Guid)id, Role: (ProfileType)(int.Parse(profileTypeInt)));
+        else
+        {
+            return Error.NotFound("ProfileType not found");
+        }
+     
+     
+        return new CurrentUser(Id: (Guid)id, Role: (ProfileType)profileType);
     }
 
     private IReadOnlyList<string> GetClaimValues(string claimType)

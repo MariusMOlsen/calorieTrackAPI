@@ -25,7 +25,7 @@ namespace CalorieTrack.Application.Services
             UserFood newFood = new UserFood(dummyUser, food.Name, food.NutritionGuid, food.AmountOfUnit, food.Barcode);
             _userFoodRepository.Add(newFood);
             await _unitOfWork.CommitChangesAsync();
-            IEnumerable<Food> foodList = await _userFoodRepository.GetAll();
+            IEnumerable<UserFood> foodList = await _userFoodRepository.GetAll();
             return UserFoodDto.convertFromEntityListToDTOList(foodList);
         }
 
@@ -42,7 +42,7 @@ namespace CalorieTrack.Application.Services
             foundFood.AmountOfUnit = food.AmountOfUnit;
             foundFood.Barcode = food.Barcode;
             await _unitOfWork.CommitChangesAsync();
-            IEnumerable<Food> foodList = await _userFoodRepository.GetAll();
+            IEnumerable<UserFood> foodList = await _userFoodRepository.GetAll();
             return UserFoodDto.convertFromEntityListToDTOList(foodList);
 
         }
@@ -56,19 +56,19 @@ namespace CalorieTrack.Application.Services
             }
             _userFoodRepository.Delete(foundFood);
             await _unitOfWork.CommitChangesAsync();
-            IEnumerable<Food> foodList = await _userFoodRepository.GetAll();
+            IEnumerable<UserFood> foodList = await _userFoodRepository.GetAll();
             return UserFoodDto.convertFromEntityListToDTOList(foodList);
         }
 
         public async Task<List<UserFoodDto>> GetAllFoods()
         {
-            IEnumerable<Food> foodList = await _userFoodRepository.GetAll();
+            IEnumerable<UserFood> foodList = await _userFoodRepository.GetAll();
             return UserFoodDto.convertFromEntityListToDTOList(foodList);
         }
 
         public async Task<UserFoodDto?> GetSingleFood(Guid guid)
         {
-            Food foundFood = await _userFoodRepository.Find(guid);
+            UserFood foundFood = await _userFoodRepository.Find(guid);
             if (foundFood == null)
             {
                 return null;

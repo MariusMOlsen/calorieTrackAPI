@@ -42,7 +42,7 @@ namespace CalorieTrack.Controllers
         {
             
             Debug.WriteLine(request.Food.Name);
-            var command = new CreateUserFoodCommand(_currentUserProvider.GetCurrentUser().Id, request.Food, request.Nutrition, request.UnitDefinition, request.servingsPrContainer);
+            var command = new CreateUserFoodCommand(_currentUserProvider.GetCurrentUser().Value.Id, request.Food, request.Nutrition, request.UnitDefinition, request.servingsPrContainer);
             // var command = new CreateUserFoodCommand(_currentUserProvider.GetCurrentUser().Id, food, nutrition, unitDefinition, servingsPrContainer);
             var createUserFoodResult = await _mediator.Send(command);
             
@@ -92,19 +92,28 @@ namespace CalorieTrack.Controllers
         }
 
         [HttpGet]
-    
+        [AuthorizeAttribute]
         public async Task<ActionResult<List<UserFoodDto>>> GetAllFoods()
         {
             var test = _httpContextAccessor.HttpContext;
-            _currentUserProvider.GetCurrentUser();
-            var query = new GetAllUserFoodsQuery(_currentUserProvider.GetCurrentUser().Id);
-            var result = await _mediator.Send(query);
-            if (result.IsError)
-            {
-                Problem(result.Errors);
-            }
-            
-            return Ok(result);
+           var testUer =  _currentUserProvider.GetCurrentUser();
+           try
+           {
+               var test5 = testUer.Value;
+               var query = new GetAllUserFoodsQuery(testUer.Value.Id);
+               var result = await _mediator.Send(query);
+               return Ok(result.Value);
+
+           }
+           catch (Exception e)
+           {
+               Debug.WriteLine(e.Message);
+               return NotFound(e.Message); 
+           }
+      
+           
+       
+           
         }
         
         [HttpGet("{guid}")]

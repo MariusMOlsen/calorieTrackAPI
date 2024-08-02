@@ -28,10 +28,10 @@ namespace CalorieTrack.Application.DTO
 
 
 
-        public static List<UserFoodDto> convertFromEntityListToDTOList(IEnumerable<Food> foodList)
+        public static List<UserFoodDto> convertFromEntityListToDTOList(IEnumerable<UserFood> foodList)
         {
             List<UserFoodDto> DTOList = new List<UserFoodDto>();
-            foreach (Food food in foodList)
+            foreach (UserFood food in foodList)
             {
                 DTOList.Add(new UserFoodDto(food.Guid, food.Name, food.NutritionGuid, food.AmountOfUnit, food.Barcode));
             }
@@ -39,7 +39,7 @@ namespace CalorieTrack.Application.DTO
             return DTOList;
         }
 
-        public static UserFoodDto convertFromEntityToDTO(Food food)
+        public static UserFoodDto convertFromEntityToDTO(UserFood food)
         {
             return new UserFoodDto(food.Guid, food.Name, food.NutritionGuid, food.AmountOfUnit, food.Barcode);
         }

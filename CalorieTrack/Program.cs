@@ -13,29 +13,29 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
 
 
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy(name: MyAllowSpecificOrigins,
-//                       policyBuilder =>
-//                       {
-//                       policyBuilder.WithOrigins("http://localhost:4200");
-//                       policyBuilder.AllowAnyHeader();
-//                           policyBuilder.AllowAnyMethod ();
-//                           policyBuilder.AllowCredentials();
-//                       });
-// });
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
-        policyBuilder =>
-        {
-            policyBuilder.AllowAnyOrigin(); // Allow all origins
-            policyBuilder.AllowAnyHeader();
-            policyBuilder.AllowAnyMethod();
-         //  policyBuilder.AllowCredentials();
-        });
+                      policyBuilder =>
+                      {
+                      policyBuilder.WithOrigins("http://localhost:4200");
+                      policyBuilder.AllowAnyHeader();
+                          policyBuilder.AllowAnyMethod ();
+                          policyBuilder.AllowCredentials();
+                      });
 });
+
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy(name: MyAllowSpecificOrigins,
+//         policyBuilder =>
+//         {
+//             policyBuilder.AllowAnyOrigin(); // Allow all origins
+//             policyBuilder.AllowAnyHeader();
+//             policyBuilder.AllowAnyMethod();
+//          //  policyBuilder.AllowCredentials();
+//         });
+// });
 
 
 builder.Services.AddPresentation();
@@ -45,21 +45,9 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
+app.UseCors(MyAllowSpecificOrigins);
 
 
-app.Use(async (context, next) =>
-{
-    await next.Invoke();
-
-    // Log the claims after the authentication middleware has run
-    var claims = context.User.Claims.Select(c => new { c.Type, c.Value }).ToList();
-    Debug.WriteLine("claims comes below " );
-    foreach (var claim in claims)
-    {
-        Debug.WriteLine("claim: " + claim);
-    }
-  
-});
 app.UseExceptionHandler();
 //app.AddInfrastructureMiddleware();
 
@@ -71,7 +59,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication();
+// app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

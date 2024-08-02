@@ -14,12 +14,15 @@ public class GetAllUserFoodsQueryHandler(
 
     : IRequestHandler<GetAllUserFoodsQuery, ErrorOr<List<UserFoodDto>>>
 {
-    private readonly IUserFoodRepository _userFoodRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserFoodRepository _userFoodRepository = foodRepository;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-    public async Task<ErrorOr<List<UserFoodDto>>> Handle(GetAllUserFoodsQuery query, CancellationToken cancellationToken)
+    
+    
+    public async Task<ErrorOr<List<UserFoodDto?>>> Handle(GetAllUserFoodsQuery query, CancellationToken cancellationToken)
     {
-        List<UserFood> foodList = await _userFoodRepository.GetAll();
+        List<UserFood?> foodList = new();
+         foodList = await _userFoodRepository.GetAll();
         return UserFoodDto.convertFromEntityListToDTOList(foodList);
 
     }

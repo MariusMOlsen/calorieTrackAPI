@@ -14,7 +14,7 @@ namespace CalorieTrack.Application.Common.Interfaces
         void Add(UserFood food);
         Task<UserFood?> Find(Guid id);
 
-        Task<List<UserFood>> GetAll();
+        Task<List<UserFood?>> GetAll();
         void Delete(UserFood food);
 
         Task<List<UserFood>?> GetFoodListByGuidList(List<Guid> foodGuids);
