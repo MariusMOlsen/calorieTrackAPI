@@ -15,7 +15,7 @@ namespace CalorieTrack.Application
             // All of theese will eventually be replaced by the MediatR
             services.AddScoped<IUnitDefinitionService, UnitDefinitionService>();
             services.AddScoped<INutritionService, NutritionService>();
-            services.AddScoped<IUserFoodService, Services.UserFoodService>();
+          
           
             services.AddScoped<IMealService, MealService>();
             services.AddScoped<IMealItemService, MealItemService>();
